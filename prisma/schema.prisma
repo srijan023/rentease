@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model person{
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  backup_email String? @unique
+  contact String
+  dob DateTime
+
+  SSN Int
+  No_ssn_reason String?
+
+  // legal documents
+  is_US_citizen Boolean?
+  // if US Citizen
+  drivers_license String?
+  state_id String
+
+  // not US Citizen
+  passport String?
+  visa String?
+
+  // International student
+  is_International_student Boolean?
+  i_20 String?
+
+  balance_statement String?
+
+  // contancts
+  emergency_contact aux_person? @relation("emergency_contact", fields: [e_con_id], references: [id])
+  e_con_id Int?
+
+  prev_landlord aux_person? @relation("prev_landlord", fields: [landlord_id], references:[id])
+  landlord_id Int?
+  no_residence_detail String?
+
+  // tenant
+  is_active_tenant Boolean
+  property_rented property[]
+}
+
+model property{
+  id Int @id @default(autoincrement())
+  leased Boolean
+  leased_by person? @relation(fields: [tenant_id], references: [id])
+  tenant_id Int?
+
+  //Area
+  lot_size Float
+  structure_area Float?
+
+  parking_features String?
+  stories String
+  home_type String
+
+  //Utility
+  sewer String?
+  water String?
+
+  //Location
+  address location @relation(fields: [location_id], references: [id])
+  location_id Int
+  street String?
+
+  //Inerior
+  bedrooms Int
+  bathrooms Int
+  basement_type String?
+  heating_feature String?
+  cooling_feature String?
+
+  // additional info
+  parcel_number Float
+  patio_porch String
+  attached_structure Boolean
+
+  // propertyInfo
+  property_subtype String
+  architecture_style String
+  year_built String
+
+}
+
+model location{
+  id Int @id @default(autoincrement())
+  state String
+  region String
+  sub_division String?
+
+  properties property[]
+  persons aux_person[]
+}
+
+model aux_person{
+  id Int @id @default(autoincrement())
+  contact String
+  email String?
+  name String
+  contact_of person[] @relation("emergency_contact")
+  landlord_of person[] @relation("prev_landlord")
+  person_type aux_person_type
+  address location @relation(fields: [address_id], references: [id])
+  address_id Int
+}
+
+enum aux_person_type{
+  Landlord
+  Emergency_Contact
+}
