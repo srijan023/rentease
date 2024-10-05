@@ -1,9 +1,9 @@
 import Image from "next/image";
-import productcard from "../assests/productcard.jpg";
-import { lato_400, lato_900 } from "../fonts/font";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { LuBedDouble } from "react-icons/lu";
 import { TbFrame } from "react-icons/tb";
+import productcard from "@assests/productcard.jpg";
+import { poppins_400, poppins_900 } from "@fonts/font";
 
 export default function PropertyCard() {
   return (
@@ -18,8 +18,8 @@ export default function PropertyCard() {
           fill
         />
         <div
-          className="absolute w-max z-10 bottom-4 right-4 bg-[rgba(255,255,255,0.7)] backdrop-blur-3xl px-3 py-1 rounded-lg tracking-wider text-[var(--primary-black)]"
-          style={lato_400.style}
+          className="absolute w-max z-10 bottom-4 right-4 bg-[rgba(255,255,255,0.5)] backdrop-filter backdrop-blur px-3 py-1 rounded-lg tracking-wider text-[var(--primary-black)]"
+          style={poppins_400.style}
         >
           $3000 per month
         </div>
@@ -27,7 +27,7 @@ export default function PropertyCard() {
       <div className="h-2/5 py-4 px-4 flex flex-col justify-between">
         <div
           className="text-2xl text-[var(--primary-black)]"
-          style={lato_900.style}
+          style={poppins_900.style}
         >
           Grand House
         </div>
