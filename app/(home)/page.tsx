@@ -1,25 +1,25 @@
-import { lato_700, playfair_800 } from "../fonts/font";
-import Button from "../components/Button";
-import { FeatureCard } from "../components/FeatureCard";
-import Container from "../components/Container";
-import featureData from "../data/feature";
+import { poppins_700, abril } from "@fonts/font";
+import Button from "@components/Button";
+import { FeatureCard } from "@components/FeatureCard";
+import Container from "@components/Container";
+import featureData from "@data/feature";
 import Image from "next/image";
-import heroImage from "../assests/hero.jpg";
-import PropertyCard from "../components/PropertyCard";
+import heroImage from "@assests/hero.jpg";
+import PropertyCard from "@components/PropertyCard";
 
 export default function Home() {
   return (
     <>
       <Container>
         <h2
-          className="text-5xl w-max mx-auto mt-48 mb-14 text-[#001a42]"
-          style={playfair_800.style}
+          className="text-6xl w-max mx-auto mt-48 mb-14 text-[#001a42]"
+          style={abril.style}
         >
           Browse, Apply, and Move In
         </h2>
         <p
-          className="max-w-xl mx-auto text-center text-xl text-[#44474f] tracking-wide "
-          style={lato_700.style}
+          className="max-w-2xl mx-auto text-center text-2xl text-[#44474f] tracking-wide "
+          style={poppins_700.style}
         >
           A personalized property rental service where clients can easily browse
           listings, view property details, and apply to book online, all managed
@@ -51,10 +51,7 @@ export default function Home() {
             );
           })}
         </div>
-        <h2
-          className="text-5xl my-20 text-[#001a42]"
-          style={playfair_800.style}
-        >
+        <h2 className="text-5xl my-20 text-[#001a42]" style={abril.style}>
           What are you looking for?
         </h2>
         <div className="mb-20">
