@@ -17,6 +17,7 @@ model person{
   id Int @id @default(autoincrement())
   name String
   email String @unique
+  password String
   backup_email String? @unique
   contact String
   dob DateTime

@@ -1,7 +1,9 @@
-import prisma from "@/db"
+const { PrismaClient } = require("@prisma/client")
+
+const newPrisma = new PrismaClient()
 async function main() {
   // Seed locations
-  const location1 = await prisma.location.create({
+  const location1 = await newPrisma.location.create({
     data: {
       state: "California",
       region: "West",
@@ -9,14 +11,14 @@ async function main() {
     }
   });
 
-  const location2 = await prisma.location.create({
+  const location2 = await newPrisma.location.create({
     data: {
       state: "Texas",
       region: "South",
     }
   });
 
-  const location3 = await prisma.location.create({
+  const location3 = await newPrisma.location.create({
     data: {
       state: "New York",
       region: "East",
@@ -24,7 +26,7 @@ async function main() {
   });
 
   // Seed aux_person
-  const auxPerson1 = await prisma.aux_person.create({
+  const auxPerson1 = await newPrisma.aux_person.create({
     data: {
       name: "John Doe",
       contact: "123456789",
@@ -33,7 +35,7 @@ async function main() {
     }
   });
 
-  const auxPerson2 = await prisma.aux_person.create({
+  const auxPerson2 = await newPrisma.aux_person.create({
     data: {
       name: "Jane Doe",
       contact: "987654321",
@@ -42,7 +44,7 @@ async function main() {
     }
   });
 
-  const auxPerson3 = await prisma.aux_person.create({
+  const auxPerson3 = await newPrisma.aux_person.create({
     data: {
       name: "Michael Smith",
       contact: "555987654",
@@ -52,7 +54,7 @@ async function main() {
   });
 
   // Seed persons (at least 10 persons)
-  const persons = await prisma.person.createMany({
+  const persons = await newPrisma.person.createMany({
     data: [
       {
         name: "Alice Johnson",
@@ -197,11 +199,11 @@ async function main() {
 
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await newPrisma.$disconnect();
   })
   .catch(async (e) => {
     console.error(e);
-    await prisma.$disconnect();
+    await newPrisma.$disconnect();
     process.exit(1);
   });
 
