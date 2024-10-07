@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Container from "./Container";
+import Container from "@components/Container";
 import { FaRegCopyright } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
-import contactData from "../data/contact";
-import { playfair_800 } from "../fonts/font";
+import contactData from "@data/contact";
+import { abril } from "@fonts/font";
 
 export default function Footer() {
   return (
@@ -11,7 +11,7 @@ export default function Footer() {
       <Container>
         <h2
           className="text-5xl max-w-2xl mx-auto pt-14 text-center"
-          style={playfair_800.style}
+          style={abril.style}
         >
           Get in touch with me for more information
         </h2>

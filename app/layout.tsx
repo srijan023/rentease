@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "./components/Footer";
+import { poppins_400 } from "./fonts/font";
 
 export const metadata: Metadata = {
   title: "Rent Ease",
@@ -14,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="antialiased" style={poppins_400.style}>
         {children}
         <Footer />
       </body>
