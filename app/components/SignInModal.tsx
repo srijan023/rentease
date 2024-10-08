@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { abril, poppins_300 } from "@fonts/font";
 import signin from "@assests/signin.svg";
 
+
 interface SignInModalProps {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
@@ -10,6 +11,7 @@ interface SignInModalProps {
 
 export default function SignInModal({ show, setShow }: SignInModalProps) {
   if (!show) return null;
+
   return (
     <div className="w-screen h-screen fixed inset-0 flex items-center justify-center z-[55] backdrop-filter backdrop-blur-sm bg-gray-300 bg-opacity-70">
       <div className="bg-white rounded-2xl">
@@ -67,4 +69,5 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
       </div>
     </div>
   );
+
 }

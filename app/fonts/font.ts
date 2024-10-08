@@ -7,3 +7,4 @@ const poppins_900 = Poppins({ weight: "900", subsets: ["latin"] });
 const abril = Abril_Fatface({ subsets: ["latin"], weight: "400" });
 
 export { poppins_300, poppins_400, poppins_700, poppins_900, abril };
+

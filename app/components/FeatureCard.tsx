@@ -8,7 +8,9 @@ interface FeatureCardProps {
 
 function FeatureCard(props: FeatureCardProps) {
   return (
+
     <div className="h-[23.5rem] w-80 rounded-3xl border-black border-solid border-[1px] overflow-hidden items-stretch">
+
       <div className="flex h-max items-center justify-around p-4 text-lg">
         <div className="p-4 w-max bg-[var(--primary-black)] rounded-full">
           <props.icon className="text-2xl text-white" />

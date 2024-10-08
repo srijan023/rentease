@@ -5,6 +5,7 @@ import { FaCode } from "react-icons/fa6";
 import contactData from "@data/contact";
 import { abril, poppins_300 } from "@fonts/font";
 
+
 export default function Footer() {
   return (
     <div className="h-max bg-[var(--primary-black)] text-white">
