@@ -3,7 +3,7 @@ import Container from "@components/Container";
 import { FaRegCopyright } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
 import contactData from "@data/contact";
-import { abril } from "@fonts/font";
+import { abril, poppins_300 } from "@fonts/font";
 
 export default function Footer() {
   return (
@@ -33,7 +33,10 @@ export default function Footer() {
             );
           })}
         </div>
-        <div className="pb-8 flex items-center justify-center gap-2 text-xs tracking-wider">
+        <div
+          className="pb-8 flex items-center justify-center gap-2 text-xs tracking-wider"
+          style={poppins_300.style}
+        >
           <FaRegCopyright />
           <span>Made by Srijan Gyawali & Abhinaya Aryal</span>
           <FaCode />
