@@ -13,112 +13,162 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model person{
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  password String
-  backup_email String? @unique
-  contact String
-  dob DateTime
+model person {
+  id                        Int       @id @default(autoincrement())
+  name                      String
+  email                     String    @unique
+  password                  String
+  backup_email              String?   @unique
+  contact                   String
+  dob                       DateTime  @db.Date
 
-  SSN Int
-  No_ssn_reason String?
+  ssn                       String    @default("000-00-0000")
+  no_ssn_reason             String?
 
-  // legal documents
-  is_US_citizen Boolean?
-  // if US Citizen
-  drivers_license String?
-  state_id String
+  isVerified                Boolean   @default(false)
+  verificationToken         String?
+  verificationExpiry        DateTime?
 
-  // not US Citizen
-  passport String?
-  visa String?
+  forgotPasswordToken       String?
+  forgotPasswordTokenExpiry DateTime?
 
-  // International student
-  is_International_student Boolean?
-  i_20 String?
+  // Legal documents
+  is_US_citizen             Boolean?
+  drivers_license           String?
+  state_id                  String?
+  passport                  String?
+  visa                      String?
+  is_International_student  Boolean?
+  i_20                      String?
+  balance_statement         String
 
-  balance_statement String?
+  // Contacts
+  emergency_contact         auxPerson? @relation("EmergencyContact", fields: [e_con_id], references: [id])
+  e_con_id                  Int?
+  prev_landlord             auxPerson? @relation("PreviousLandlord", fields: [landlord_id], references: [id])
+  landlord_id               Int?
+  no_residence_detail       String?
 
-  // contancts
-  emergency_contact aux_person? @relation("emergency_contact", fields: [e_con_id], references: [id])
-  e_con_id Int?
+  // Tenant details
+  is_active_tenant          Boolean @default(false)
+  property_rented           property[]
 
-  prev_landlord aux_person? @relation("prev_landlord", fields: [landlord_id], references:[id])
-  landlord_id Int?
-  no_residence_detail String?
-
-  // tenant
-  is_active_tenant Boolean
-  property_rented property[]
+  // Relations to other models
+  transactions              transaction[]
+  maintenance_requests      maintenance[]
+  messages_received         message[] @relation("ReceivedMessages")
+  notifications             notificationRead[] @relation("PersonsNotificationReads")
 }
 
-model property{
-  id Int @id @default(autoincrement())
-  leased Boolean
-  leased_by person? @relation(fields: [tenant_id], references: [id])
-  tenant_id Int?
+model property {
+  id                    Int       @id @default(autoincrement())
+  leased                Boolean
+  leased_by             person?    @relation(fields: [tenant_id], references: [id])
+  tenant_id             Int?
 
-  //Area
-  lot_size Float
-  structure_area Float?
+  lot_size              Float
+  structure_area        Float?
+  parking_features      String?
+  stories               String
+  home_type             String
+  sewer                 String?
+  water                 String?
 
-  parking_features String?
-  stories String
-  home_type String
+  state                 String
+  region                String
+  sub_division          String?
+  street                String?
 
-  //Utility
-  sewer String?
-  water String?
+  bedrooms              Int
+  bathrooms             Int
+  basement_type         String?
+  heating_feature       String?
+  cooling_feature       String?
+  parcel_number         Float
+  patio_porch           String
+  attached_structure    Boolean
+  property_subtype      String
+  architecture_style    String
+  year_built            String
 
-  //Location
-  address location @relation(fields: [location_id], references: [id])
-  location_id Int
-  street String?
-
-  //Inerior
-  bedrooms Int
-  bathrooms Int
-  basement_type String?
-  heating_feature String?
-  cooling_feature String?
-
-  // additional info
-  parcel_number Float
-  patio_porch String
-  attached_structure Boolean
-
-  // propertyInfo
-  property_subtype String
-  architecture_style String
-  year_built String
-
+  maintenance_requests maintenance[]
+  transactions transaction[]
 }
 
-model location{
-  id Int @id @default(autoincrement())
-  state String
-  region String
-  sub_division String?
 
-  properties property[]
-  persons aux_person[]
+model auxPerson {
+  id            Int           @id @default(autoincrement())
+  contact       String
+  email         String?
+  name          String
+  contact_of    person[]      @relation("EmergencyContact")
+  landlord_of   person[]      @relation("PreviousLandlord")
+  person_type   auxPersonType
+  state         String
+  region        String
+  sub_division  String?
 }
 
-model aux_person{
-  id Int @id @default(autoincrement())
-  contact String
-  email String?
-  name String
-  contact_of person[] @relation("emergency_contact")
-  landlord_of person[] @relation("prev_landlord")
-  person_type aux_person_type
-  address location @relation(fields: [address_id], references: [id])
-  address_id Int
-}
-
-enum aux_person_type{
+enum auxPersonType {
   Landlord
   Emergency_Contact
 }
+
+model maintenance {
+  id                  Int               @id @default(autoincrement())
+  request_date        DateTime          @default(now())
+  subject             String
+  description         String
+  status              maintenanceStatus @default(Pending)
+  person              person            @relation(fields: [person_id], references: [id])
+  person_id           Int
+  property            property          @relation(fields: [property_id], references: [id])
+  property_id         Int
+  resolution_date     DateTime?
+  cost                Int?
+}
+
+enum maintenanceStatus {
+  Pending
+  In_Progress
+  Resolved
+  Cancelled
+}
+
+model transaction {
+  id                  Int       @id @default(autoincrement())
+  amount              Float
+  transaction_date    DateTime  @default(now())
+  person              person    @relation(fields: [person_id], references: [id])
+  person_id           Int
+  property            property  @relation(fields: [property_id], references: [id])
+  property_id         Int
+  transaction_id      String
+}
+
+model message {
+  id          Int       @id @default(autoincrement())
+  content     String
+  created_at  DateTime  @default(now())
+  receiver    person    @relation("ReceivedMessages", fields: [receiver_id], references: [id])
+  receiver_id Int
+}
+
+model notification {
+  id          Int       @id @default(autoincrement())
+  content     String
+  created_at  DateTime  @default(now())
+  reads       notificationRead[]
+}
+
+model notificationRead {
+  id              Int           @id @default(autoincrement())
+  personId        Int
+  notificationId  Int
+  read            Boolean
+  person          person        @relation("PersonsNotificationReads", fields: [personId], references: [id])
+  notification    notification  @relation(fields: [notificationId], references: [id])
+
+  @@unique([personId, notificationId]) // ensure each person can only have one read status
+}
+
