@@ -18,7 +18,7 @@ model person {
   name                      String
   email                     String    @unique
   password                  String
-  backup_email              String?   @unique
+  backup_email              String?
   contact                   String
   dob                       DateTime  @db.Date
 

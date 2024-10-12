@@ -1,41 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/db"
-import bcryptjs from "bcryptjs"
-import jwt from "jsonwebtoken"
+import { findExisitingUser } from "@/services/findFromDB";
+import { validateHashedPasswords } from "@/utils/passwordHashes";
+import { generateJWTToken } from "@/utils/JWTTokens";
+import { validateLoginRequest } from "@/validations/personValidation";
 
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json()
 
+    const isValidInput = validateLoginRequest(reqBody)
+
+    if (!isValidInput.success) {
+      return NextResponse.json({
+        "message": "Invalid data format",
+        "errors": isValidInput.errors
+      }, { status: 400 })
+    }
+
     const { email, password } = reqBody;
 
-    const person = await prisma.person.findFirst({
-      where: {
-        email
-      }
-    })
-
-    if (!person) {
+    const existingUser = await findExisitingUser(email)
+    if (!existingUser.success) {
       return NextResponse.json({
         error: "Incorrect email provided"
       }, { status: 404 })
     }
 
-    const validPassword = await bcryptjs.compare(password, person.password)
+    const person = existingUser.user
 
-    if (!validPassword) {
+    if (!person) {
+      throw "Unexpected error occured";
+    }
+
+    const isValidPassword = validateHashedPasswords(password, person.password)
+
+    if (!isValidPassword) {
       return NextResponse.json({
         error: "Incorrect password"
       }, { status: 401 })
     }
-
-    const tokenData = {
-      id: person.id,
-      name: person.name,
-      email: person.email
-    }
-
-    const token = jwt.sign({ data: tokenData }, process.env.JWT_SECRET || "defaultSecret")
 
     const response = NextResponse.json({
       message: "Login successful",
@@ -43,11 +46,10 @@ export async function POST(request: NextRequest) {
       name: person.name
     }, { status: 200 })
 
-    response.cookies.set("token", token, {
-      httpOnly: true
-    })
+    generateJWTToken(person.email, person.id, person.name, response)
 
     return response
+
   } catch (err: any) {
     return NextResponse.json({
       error: err.message

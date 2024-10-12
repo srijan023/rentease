@@ -1,71 +1,49 @@
-import prisma from "@/db";
-import { personSchema } from "@/validations/personSchema";
+import { insertRelationalDetailsSignup } from "@/services/insertToDB";
+import { generateJWTToken } from "@/utils/JWTTokens";
+import { hashPassword } from "@/utils/passwordHashes";
+import { validateSignupRequest } from "@/validations/personValidation";
+import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import bcryptjs from "bcryptjs"
 
 export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json()
 
-    const validationResult = personSchema.safeParse(reqBody)
+    const validationResult = validateSignupRequest(reqBody)
 
     if (!validationResult.success) {
       return NextResponse.json({
-        "success": false,
-        "errors": validationResult.error.flatten()
+        success: false,
+        error: validationResult.errors
       }, { status: 400 })
     }
 
     const { emergency_contact, prev_landlord, ...userDetails } = reqBody;
 
-    // emergency contact is a must
-    emergency_contact["person_type"] = "Emergency_Contact"
+    // inserting hashed password to replace the plain text password
+    userDetails.password = await hashPassword(userDetails.password)
 
-    // previous landlord is optional
-    if (prev_landlord) {
-      prev_landlord["person_type"] = "Landlord"
-    }
+    const result = await insertRelationalDetailsSignup(emergency_contact, prev_landlord, userDetails)
+    const response = NextResponse.json({
+      response: result.id
+    }, { status: 201 })
 
-    // hashing password
-    const salt = await bcryptjs.genSalt(10)
-    const hashedPassword = await bcryptjs.hash(userDetails.password, salt)
+    generateJWTToken(result.email, result.id, result.name, response)
 
-    userDetails.password = hashedPassword
-
-    // uploading data to the database
-    const result = await prisma.$transaction(async (prisma) => {
-      // uploading emergency contact
-      const emergency_contact_response = await prisma.auxPerson.create({
-        data: emergency_contact
-      })
-
-      let prev_landlord_response = null
-      // uploading landlord information if it exists
-      if (prev_landlord) {
-        prev_landlord_response = await prisma.auxPerson.create({
-          data: prev_landlord
-        })
-      }
-
-      // uploading user with the landlord and emergency contact added
-      const person_response = await prisma.person.create({
-        data: {
-          ...userDetails,
-          emergency_contact: { connect: { id: emergency_contact_response.id } },
-          ...(prev_landlord_response && { prev_landlord: { connect: { id: prev_landlord_response.id } } })
-        }
-      })
-
-      return person_response
-    })
-
-    // creating a jwt token
-
-    return NextResponse.json({
-      "response": result.id
-    })
+    return response
 
   } catch (err: any) {
+    // TODO: better error handling
+
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code == "P2002") {
+        return NextResponse.json(
+          {
+            error: "A user already exists with this email"
+          },
+          { status: 500 })
+      }
+    }
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }

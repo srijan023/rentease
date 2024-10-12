@@ -7,6 +7,11 @@ eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
 const hundredYearsAgo = new Date();
 hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100);
 
+export const loginSchema = z.object({
+  email: z.string({ required_error: "Email field is required" }).email(),
+  password: z.string().min(6, "Password must be atleast 6 characters long"),
+})
+
 export const personSchema = z.object({
   name: z.string({ required_error: "Name field is required" }),
   email: z.string().email("Invalid email"),
@@ -72,3 +77,4 @@ export const personSchema = z.object({
     path: ["no_residence_detail"],
     message: "If landlord details are not provided, a valid reason for not having a previous address must be provided"
   })
+
