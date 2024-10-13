@@ -3,6 +3,12 @@ export enum auxPersonType {
   Emergency_Contact = "Emergency_Contact"
 }
 
+export interface tokenData {
+  id: number,
+  email: string,
+  name: string
+}
+
 export interface typeAuxPerson {
   id?: number,
   name: string,
