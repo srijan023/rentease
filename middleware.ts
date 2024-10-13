@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextRequest } from 'next/server'
 import { validateJWTToken } from './utils/JWTTokens'
 import { tokenData } from './validations/propsTypes'
 
@@ -27,9 +27,31 @@ export async function middleware(request: NextRequest) {
       return NextResponse.rewrite(new URL(`/profile/${tokenInfo.id}`, request.url))
     }
   }
+
+  if (request.nextUrl.pathname.startsWith("/api/users/me")) {
+    const isValid = await validateJWTToken(request);
+
+    if (!isValid.success && !isValid.data?.id) {
+      return NextResponse.rewrite(new URL("/signup", request.url))
+    } else {
+      const tokenInfo = isValid.data as tokenData
+      const userId = tokenInfo.id.toString()
+      const requestHeaders = new Headers(request.headers)
+      requestHeaders.set("id", userId)
+
+      const response = NextResponse.next({
+        request: {
+          // New request headers
+          headers: requestHeaders,
+        },
+      })
+
+      return response
+    }
+  }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/', '/profile', "/signup"],
+  matcher: ['/', '/profile', "/signup", "/api/users/me"],
 }

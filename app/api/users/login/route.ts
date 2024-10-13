@@ -12,8 +12,8 @@ export async function POST(request: NextRequest) {
 
     if (!isValidInput.success) {
       return NextResponse.json({
-        "message": "Invalid data format",
-        "errors": isValidInput.errors
+        message: "Invalid data format",
+        error: isValidInput.errors
       }, { status: 400 })
     }
 
