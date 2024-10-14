@@ -1,22 +1,22 @@
-import prisma from "@/db"
+import prisma from "@/db";
 
-export async function findExisitingUser(email: string) {
+export async function findExistingUser(email: string) {
   const res = await prisma.person.findFirst({
     where: {
-      email
-    }
-  })
+      email,
+    },
+  });
 
   if (!res) {
     return {
-      success: false
-    }
+      success: false,
+    };
   }
 
   return {
     success: true,
-    user: res
-  }
+    user: res,
+  };
 }
 
 export async function findUserDetailsFromId(id: number) {
@@ -44,8 +44,8 @@ export async function findUserDetailsFromId(id: number) {
           contact: true,
           state: true,
           region: true,
-          sub_division: true
-        }
+          sub_division: true,
+        },
       },
       prev_landlord: {
         select: {
@@ -54,22 +54,22 @@ export async function findUserDetailsFromId(id: number) {
           contact: true,
           state: true,
           region: true,
-          sub_division: true
-        }
+          sub_division: true,
+        },
       },
-      no_residence_detail: true
+      no_residence_detail: true,
     },
-  })
+  });
 
   if (!res) {
     return {
       success: false,
-      message: "No user with that id exists"
-    }
+      message: "No user with that id exists",
+    };
   }
 
   return {
     success: true,
-    data: res
-  }
+    data: res,
+  };
 }

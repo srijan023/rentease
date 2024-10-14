@@ -1,58 +1,72 @@
 import { NextRequest, NextResponse } from "next/server";
-import { findExisitingUser } from "@/services/findFromDB";
+import { findExistingUser } from "@/services/findFromDB";
 import { validateHashedPasswords } from "@/utils/passwordHashes";
 import { generateJWTToken } from "@/utils/JWTTokens";
 import { validateLoginRequest } from "@/validations/personValidation";
 
 export async function POST(request: NextRequest) {
   try {
-    const reqBody = await request.json()
+    const reqBody = await request.json();
 
-    const isValidInput = validateLoginRequest(reqBody)
+    const isValidInput = validateLoginRequest(reqBody);
 
     if (!isValidInput.success) {
-      return NextResponse.json({
-        message: "Invalid data format",
-        error: isValidInput.errors
-      }, { status: 400 })
+      return NextResponse.json(
+        {
+          message: "Invalid data format",
+          error: isValidInput.errors,
+        },
+        { status: 400 },
+      );
     }
 
     const { email, password } = reqBody;
 
-    const existingUser = await findExisitingUser(email)
+    const existingUser = await findExistingUser(email);
     if (!existingUser.success) {
-      return NextResponse.json({
-        error: "Incorrect email provided"
-      }, { status: 404 })
+      return NextResponse.json(
+        {
+          error: "Incorrect email provided",
+        },
+        { status: 404 },
+      );
     }
 
-    const person = existingUser.user
+    const person = existingUser.user;
 
     if (!person) {
-      throw "Unexpected error occured";
+      throw "Unexpected error occurred";
     }
 
-    const isValidPassword = validateHashedPasswords(password, person.password)
+    const isValidPassword = validateHashedPasswords(password, person.password);
 
     if (!isValidPassword) {
-      return NextResponse.json({
-        error: "Incorrect password"
-      }, { status: 401 })
+      return NextResponse.json(
+        {
+          error: "Incorrect password",
+        },
+        { status: 401 },
+      );
     }
 
-    const response = NextResponse.json({
-      message: "Login successful",
-      id: person.id,
-      name: person.name
-    }, { status: 200 })
+    const response = NextResponse.json(
+      {
+        message: "Login successful",
+        id: person.id,
+        name: person.name,
+      },
+      { status: 200 },
+    );
 
-    generateJWTToken(person.email, person.id, person.name, response)
+    generateJWTToken(person.email, person.id, person.name, response);
 
-    return response
-
+    return response;
   } catch (err: any) {
-    return NextResponse.json({
-      error: err.message
-    }, { status: 500 })
+    return NextResponse.json(
+      {
+        error: err.message,
+      },
+      { status: 500 },
+    );
   }
 }
