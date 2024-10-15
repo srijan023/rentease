@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import signin from "@assests/signin.svg";
 import Button from "@components/Button";
 import { abril, poppins_400 } from "@fonts/font";
@@ -15,30 +16,69 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!show) return;
+
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        modalContentRef.current &&
+        !modalContentRef.current.contains(event.target as Node)
+      ) {
+        setShow(false);
+        setEmail("");
+        setPassword("");
+        setError("");
+      }
+    };
+
+    const backdropElement = backdropRef.current;
+
+    backdropElement?.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      backdropElement?.removeEventListener("click", handleOutsideClick);
+    };
+  }, [show, setShow]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       const response = await fetch("/api/users/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
+
       if (!response.ok) throw new Error(data.error);
 
+      // TODO: Push another route instead of alert and Proper error handling and error display in ui
       alert("Login Successful!");
       setShow(false);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+        console.log(err);
+      } else {
+        setError("An unexpected error occurred.");
+        console.log("Unexpected error: ", err);
+      }
     }
   };
 
   if (!show) return null;
 
   return (
-    <div className="w-screen h-screen fixed inset-0 flex items-center justify-center z-[55] backdrop-filter backdrop-blur-sm bg-gray-300 bg-opacity-70">
-      <div className="bg-white rounded-2xl">
+    <div
+      ref={backdropRef}
+      className="w-screen h-screen fixed inset-0 flex items-center justify-center z-[55] backdrop-filter backdrop-blur-sm bg-gray-300 bg-opacity-70"
+    >
+      <div ref={modalContentRef} className="bg-white rounded-2xl">
         <div className="flex">
           <div className="bg-[#fff8f7] rounded-l-2xl p-8">
             <h2 style={abril.style} className="font-bold text-5xl text-center">
@@ -101,14 +141,17 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
                   required
                 />
               </div>
-              {error && <span>{error}</span>}
+              {error && <span className="max-w-xs block">{error}</span>}
               <Button
                 label="Sign In"
                 type="submit"
                 classes="bg-black text-white mx-auto block mt-12 mb-6"
               />
-              <span className="mx-aut text-center block text-lg">
-                Do not have an account? Sign Up
+              <span className="mx-auto text-center block text-lg">
+                Do not have an account?&nbsp;
+                <Link href="/signup" className="text-blue-500">
+                  Sign Up
+                </Link>
               </span>
             </div>
           </form>
