@@ -38,3 +38,30 @@ export async function insertVerficiationToken(token: string, userId: number, tok
     }
   }
 }
+
+export async function setVerified(id: number) {
+  const response = await prisma.person.update({
+    where: {
+      id: id
+    },
+    data: {
+      isVerified: true,
+      verificationToken: "",
+      verificationExpiry: null
+    }
+  })
+
+  if (!response) {
+    return {
+      success: false,
+      error: "Error while inserting into the database",
+      status: 500
+    }
+  }
+
+  return {
+    success: true,
+    message: "Update the user to verified",
+    status: 200
+  }
+}

@@ -18,7 +18,8 @@ export async function generateJWTToken(email: string, id: number, name: string, 
     .sign(key)
 
   response.cookies.set("token", token, {
-    httpOnly: true
+    httpOnly: true,
+    sameSite: true,
   })
 
   return

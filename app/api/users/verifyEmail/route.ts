@@ -1,4 +1,5 @@
-import { insertVerficiationToken } from "@/services/insertVerficiationTokens";
+import { sendEmail } from "@/services/sendEmails";
+import { insertVerficiationToken } from "@/services/updateVerificationTokens";
 import { generateToken } from "@/utils/verificationTokens";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -16,10 +17,24 @@ export async function GET(request: NextRequest) {
       throw response.error
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Verification email sent"
-    })
+    const userEmail = request.headers.get("email")
+    if (!userEmail) {
+      throw "User Email not found on header"
+    }
+    const emailResponse = await sendEmail(token, userEmail, "VERIFICATION")
+
+    if (emailResponse.success) {
+      return NextResponse.json({
+        success: true,
+        message: "Verification email sent"
+      })
+    } else {
+      return NextResponse.json({
+        success: false,
+        error: emailResponse.error
+      })
+    }
+
   } catch (err: any) {
     return NextResponse.json({
       error: err.message

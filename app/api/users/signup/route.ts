@@ -23,6 +23,8 @@ export async function POST(request: NextRequest) {
     // inserting hashed password to replace the plain text password
     userDetails.password = await hashPassword(userDetails.password)
 
+    userDetails.dob = new Date(userDetails.dob)
+
     const result = await insertRelationalDetailsSignup(emergency_contact, prev_landlord, userDetails)
     const response = NextResponse.json({
       response: result.id

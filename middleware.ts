@@ -37,8 +37,10 @@ export async function middleware(request: NextRequest) {
     } else {
       const tokenInfo = isValid.data as tokenData
       const userId = tokenInfo.id.toString()
+      const userEmail = tokenInfo.email.toString()
       const requestHeaders = new Headers(request.headers)
       requestHeaders.set("id", userId)
+      requestHeaders.set("email", userEmail)
 
       const response = NextResponse.next({
         request: {
@@ -54,5 +56,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/', '/profile', "/signup", "/api/users/me", "/api/users/verifyEmail"],
+  matcher: ['/', '/profile', "/signup", "/api/users/me", "/api/users/verifyEmail/:path*"],
 }

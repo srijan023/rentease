@@ -26,7 +26,7 @@ export interface typePerson {
   password: string,
   backup_email: string,
   contact: string,
-  dob: string,
+  dob: string | Date,
   ssn: string,
   no_ssn_reason: string,
   is_US_citizen: boolean,
