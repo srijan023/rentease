@@ -28,7 +28,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  if (request.nextUrl.pathname.startsWith("/api/users/me")) {
+  if (request.nextUrl.pathname.startsWith("/api/users/me") ||
+    request.nextUrl.pathname.startsWith("/api/users/verifyEmail")) {
     const isValid = await validateJWTToken(request);
 
     if (!isValid.success && !isValid.data?.id) {
@@ -53,5 +54,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/', '/profile', "/signup", "/api/users/me"],
+  matcher: ['/', '/profile', "/signup", "/api/users/me", "/api/users/verifyEmail"],
 }
