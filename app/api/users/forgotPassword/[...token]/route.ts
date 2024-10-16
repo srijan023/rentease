@@ -1,3 +1,4 @@
+import { clearVerificationTokens } from "@/services/updateVerificationTokens";
 import { generateJWTToken } from "@/utils/JWTTokens";
 import { validateVerificationToken } from "@/utils/validateEmailTokens";
 import { NextRequest, NextResponse } from "next/server";
@@ -5,6 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(_: NextRequest, { params }: { params: { token: string[] } }) {
   try {
     const response = await validateVerificationToken(params.token[0], "RESET")
+
 
     if (!response.success) {
       return NextResponse.json({
@@ -22,6 +24,7 @@ export async function GET(_: NextRequest, { params }: { params: { token: string[
     const email = response.user.email
     const name = response.user.name
 
+    await clearVerificationTokens(id)
 
     const nxtResponse = NextResponse.redirect(`${process.env.DOMAIN_NAME}/resetPassword`, { status: 302 })
 

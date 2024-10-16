@@ -1,7 +1,6 @@
 import prisma from "@/db"
 export async function updatePassword(password: string, id: number) {
   try {
-
     const response = await prisma.person.update({
       where: {
         id: id

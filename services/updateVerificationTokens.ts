@@ -44,28 +44,49 @@ export async function insertVerficiationToken(token: string, tokenType: string, 
 }
 
 export async function setVerified(id: number) {
-  const response = await prisma.person.update({
-    where: {
-      id: id
-    },
-    data: {
-      isVerified: true,
-      verificationToken: "",
-      verificationExpiry: null
-    }
-  })
+  try {
+    const response = await prisma.person.update({
+      where: {
+        id: id
+      },
+      data: {
+        isVerified: true,
+        verificationToken: "",
+        verificationExpiry: null
+      }
+    })
 
-  if (!response) {
+    if (!response) {
+      return {
+        success: false,
+        error: "Error while inserting into the database",
+        status: 500
+      }
+    }
+
     return {
-      success: false,
-      error: "Error while inserting into the database",
-      status: 500
+      success: true,
+      message: "Update the user to verified",
+      status: 200
     }
+  } catch (err: any) {
+    return err
   }
+}
 
-  return {
-    success: true,
-    message: "Update the user to verified",
-    status: 200
+export async function clearVerificationTokens(id: number) {
+  try {
+    const response = await prisma.person.update({
+      where: {
+        id: id
+      },
+      data: {
+        forgotPasswordToken: null,
+        forgotPasswordTokenExpiry: null
+      }
+    })
+    return response
+  } catch (err: any) {
+    return err
   }
 }
