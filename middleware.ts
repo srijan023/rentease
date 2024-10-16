@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { validateJWTToken } from './utils/JWTTokens'
 import { tokenData } from './validations/propsTypes'
+import { insertTokenDataOnHeaders } from './helpers/tokenizeHeader'
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
@@ -28,33 +29,61 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // actual authentication middleware, verifying user before making the request
+  // based on the saved JWT token
   if (request.nextUrl.pathname.startsWith("/api/users/me") ||
     request.nextUrl.pathname.startsWith("/api/users/verifyEmail")) {
     const isValid = await validateJWTToken(request);
 
     if (!isValid.success && !isValid.data?.id) {
       return NextResponse.rewrite(new URL("/signup", request.url))
-    } else {
-      const tokenInfo = isValid.data as tokenData
-      const userId = tokenInfo.id.toString()
-      const userEmail = tokenInfo.email.toString()
-      const requestHeaders = new Headers(request.headers)
-      requestHeaders.set("id", userId)
-      requestHeaders.set("email", userEmail)
-
-      const response = NextResponse.next({
-        request: {
-          // New request headers
-          headers: requestHeaders,
-        },
-      })
-
-      return response
     }
+
+    const tokenInfo = isValid.data as tokenData
+
+    const requestHeaders = insertTokenDataOnHeaders(tokenInfo, request)
+
+    const response = NextResponse.next({
+      request: {
+        // New request headers
+        headers: requestHeaders,
+      },
+    })
+
+    return response
+  }
+
+  if (request.nextUrl.pathname.startsWith("/api/users/resetPassword")) {
+    const isValid = await validateJWTToken(request)
+    if (!isValid.success) {
+      return NextResponse.json({
+        success: false,
+        error: isValid.error
+      }, { status: 401 }) // TODO: Change this later
+    }
+
+    const tokenInfo = isValid.data as tokenData
+
+    const requestHeaders = insertTokenDataOnHeaders(tokenInfo, request)
+
+    const response = NextResponse.next({
+      request: {
+        // New request headers
+        headers: requestHeaders,
+      },
+    })
+
+    return response
   }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/', '/profile', "/signup", "/api/users/me", "/api/users/verifyEmail/:path*"],
+  matcher: [
+    "/profile",
+    "/signup",
+    "/api/users/me",
+    "/api/users/verifyEmail/:path*",
+    "/api/users/resetPassword"
+  ]
 }

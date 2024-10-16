@@ -19,10 +19,25 @@ export async function sendEmail(token: string, email: string, emailType: string)
       to: email,
       subject: "Verify you email for RentEase",
       text: `Verify your email by copying and pasting this link to your browser,
-http://localhost:3000/api/users/verifyEmail/${token}`,
+${process.env.DOMAIN_NAME}/api/users/verifyEmail/${token}`,
       html: `<h1>Email Verification</h1><br><p>RentEase needs to confirm your email address is still valid.
 Please click the link below to confirm you received this mail.</p><br>
-<a href="http://localhost:3000/api/users/verifyEmail/${token}">Verify Email</a><br>
+<a href="${process.env.DOMAIN_NAME}/api/users/verifyEmail/${token}">Verify Email</a><br>
+<p>If you're worried about this email being legitimate, you can contact the landlord directly from the contacts
+details provided.</p><br>
+<p>Please do not reply to this email, as it was sent from an unattended mailbox.</p>
+`
+    }
+  } else if (emailType == "RESET") {
+    mailOptions = {
+      from: process.env.EMAIL_NAME,
+      to: email,
+      subject: "Reset your RentEase password",
+      text: `Reset your password by copying and pasting this link to your browser,
+${process.env.DOMAIN_NAME}/api/users/forgotPassword/${token}\n Do not share this link with anyone`,
+      html: `<h1>Reset RentEase Password</h1><br><p>RentEase needs to confirm your identity.
+Please click the link below to reset your password.</p><br>
+<a href="${process.env.DOMAIN_NAME}/api/users/forgotPassword/${token}">Reset Password</a><br>
 <p>If you're worried about this email being legitimate, you can contact the landlord directly from the contacts
 details provided.</p><br>
 <p>Please do not reply to this email, as it was sent from an unattended mailbox.</p>
