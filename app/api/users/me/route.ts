@@ -5,7 +5,9 @@ export async function GET(request: NextRequest) {
   try {
     const id = request.headers.get("id")
     if (!id) {
-      throw "Internal server error";
+      throw {
+        message: "Internal server error"
+      };
     }
 
     // fetching the user information from the database

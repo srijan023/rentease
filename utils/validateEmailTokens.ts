@@ -52,7 +52,7 @@ export async function validateVerificationToken(token: string, verificationType:
     return {
       success: true,
       message: "Successfully verified token",
-      id: user.id,
+      user: user,
       status: 202
     }
 

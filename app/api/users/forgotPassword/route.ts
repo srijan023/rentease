@@ -3,34 +3,31 @@ import { insertVerficiationToken } from "@/services/updateVerificationTokens";
 import { generateToken } from "@/utils/verificationTokens";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const userId = request.headers.get("id")
-    if (!userId) {
+    const reqBody = await request.json()
+
+    const { email } = reqBody
+    if (!email) {
       throw {
-        message: "UserId could not be found"
+        message: "User email not found"
       }
     }
-    const token = await generateToken(userId.toString())
 
-    const response = await insertVerficiationToken(token, "VERIFICATION", parseInt(userId), "")
+    const token = await generateToken(email)
+
+    const response = await insertVerficiationToken(token, "RESET", 0, email)
 
     if (!response.success) {
       throw response.error
     }
 
-    const userEmail = request.headers.get("email")
-    if (!userEmail) {
-      throw {
-        message: "User Email not found on header"
-      }
-    }
-    const emailResponse = await sendEmail(token, userEmail, "VERIFICATION")
+    const emailResponse = await sendEmail(token, email, "RESET")
 
     if (emailResponse.success) {
       return NextResponse.json({
         success: true,
-        message: "Verification email sent"
+        message: "Reset password link sent to the user email"
       })
     } else {
       return NextResponse.json({

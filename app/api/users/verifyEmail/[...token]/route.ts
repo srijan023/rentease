@@ -12,10 +12,13 @@ export async function GET(request: NextRequest, { params }: { params: { token: s
       }, { status: response.status })
     }
 
-    const id = response.id
-    if (!id) {
-      throw "Unexpected Error on user validation";
+    if (!response.user?.id) {
+      throw {
+        message: "Unexpected Error on user validation"
+      };
     }
+
+    const id = response.user.id
 
     const databaseResponse = await setVerified(id);
 

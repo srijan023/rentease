@@ -1,17 +1,23 @@
 import prisma from "@/db"
 
-export async function insertVerficiationToken(token: string, userId: number, tokenType: string) {
+export async function insertVerficiationToken(token: string, tokenType: string, userId?: number, userEmail?: string) {
   let change
+  let where
   if (tokenType == "VERIFICATION") {
     change = {
       verificationToken: token,
       verificationExpiry: new Date(Date.now() + 60 * 60 * 24 * 1000)
-
+    }
+    where = {
+      id: userId
     }
   } else if (tokenType == "RESET") {
     change = {
       forgotPasswordToken: token,
       forgotPasswordTokenExpiry: new Date(Date.now() + 60 * 15 * 1000)
+    }
+    where = {
+      email: userEmail
     }
   } else {
     return {
@@ -21,9 +27,7 @@ export async function insertVerficiationToken(token: string, userId: number, tok
   }
   try {
     await prisma.person.update({
-      where: {
-        id: userId
-      },
+      where: where,
       data: change
     })
 
