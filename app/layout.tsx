@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Footer from "./components/Footer";
-import { poppins_400 } from "./fonts/font";
+import Footer from "@components/Footer";
+import { poppins_400 } from "@fonts/font";
 
 export const metadata: Metadata = {
   title: "Rent Ease",
