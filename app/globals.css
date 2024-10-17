@@ -5,6 +5,52 @@
 :root {
   --primary-black: #141b2c;
   --background-white: #fff8f7;
+
+  --black: #000000;
+
+  --primary-10: #001A42;
+  --primary-20: #002E6A;
+  --primary-30: #0F4490;
+  --primary-40: #315CA9;
+  --primary-50: #4D76C4;
+  --primary-60: #6890E0;
+  --primary-70: #83AAFD;
+  --primary-80: #AEC6FF;
+  --primary-90: #D8E2FF;
+  --primary-95: #EDF0FF;
+
+  --secondary-10: #141B2C;
+  --secondary-20: #293042;
+  --secondary-30: #3F4759;
+  --secondary-40: #575E72;
+  --secondary-50: #6F778B;
+  --secondary-60: #8990A5;
+  --secondary-70: #A3ABC1;
+  --secondary-80: #BFC6DD;
+  --secondary-90: #DBE2F9;
+  --secondary-95: #EDF0FF;
+
+  --tertiory-10: #2A132D;
+  --tertiory-20: #402743;
+  --tertiory-30: #583E5B;
+  --tertiory-40: #715573;
+  --tertiory-50: #8C6D8D;
+  --tertiory-60: #A786A8;
+  --tertiory-70: #C2A0C3;
+  --tertiory-80: #DFBBDF;
+  --tertiory-90: #FCD7FC;
+  --tertiory-95: #FFEBFC;
+
+  --custom-red-10: #410002;
+  --custom-red-20: #690005;
+  --custom-red-30: #93000A;
+  --custom-red-40: #BA1A1A;
+  --custom-red-50: #DE3730;
+  --custom-red-60: #FF5449;
+  --custom-red-70: #FF897D;
+  --custom-red-80: #FFB4AB;
+  --custom-red-90: #FFDAD6;
+  --custom-red-95: #FFF8F7;
 }
 
 @media (prefers-color-scheme: dark) {
