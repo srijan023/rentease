@@ -18,7 +18,8 @@ export async function generateJWTToken(email: string, id: number, name: string, 
     .sign(key)
 
   response.cookies.set("token", token, {
-    httpOnly: true
+    httpOnly: true,
+    sameSite: true,
   })
 
   return
@@ -36,10 +37,13 @@ export async function validateJWTToken(request: NextRequest) {
   try {
     const key = new TextEncoder().encode(process.env.JWT_SECRET || "defaultSecret")
     const { payload, protectedHeader: _ } = await jwtVerify(token, key)
-    const tokenData = payload.data as tokenData
     return {
       success: true,
-      data: tokenData
+      data: {
+        id: payload.id,
+        name: payload.name,
+        email: payload.email
+      }
     }
   } catch (err: any) {
     return {

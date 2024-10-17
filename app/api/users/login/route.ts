@@ -35,7 +35,9 @@ export async function POST(request: NextRequest) {
     const person = existingUser.user;
 
     if (!person) {
-      throw "Unexpected error occurred";
+      throw {
+        message: "Unexpected error occured"
+      };
     }
 
     const isValidPassword = validateHashedPasswords(password, person.password);
