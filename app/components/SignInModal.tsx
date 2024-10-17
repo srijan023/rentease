@@ -5,6 +5,8 @@ import signin from "@assests/signin.svg";
 import Button from "@components/Button";
 import { abril, poppins_400 } from "@fonts/font";
 import { useState } from "react";
+import RentEase from "@components/RentEase";
+import Description from "./Description";
 
 interface SignInModalProps {
   show: boolean;
@@ -80,16 +82,12 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
     >
       <div ref={modalContentRef} className="bg-white rounded-2xl">
         <div className="flex">
-          <div className="bg-[#fff8f7] rounded-l-2xl p-8">
-            <h2 style={abril.style} className="font-bold text-5xl text-center">
-              RentEase
-            </h2>
-            <span
-              className="mx-auto mt-4 text-center block max-w-xs text-sm text-gray-700"
-              style={poppins_400.style}
-            >
-              All your rental needs in one place and securely maintained
-            </span>
+          <div className="bg-[#fff1f1] rounded-l-2xl p-8">
+            <RentEase />
+            <Description
+              description="All your rental needs in one place and securely maintained"
+              classes="mt-4"
+            />
             <div className="flex justify-center px-8">
               <Image
                 src={signin}
@@ -107,12 +105,7 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
               >
                 Welcome Back
               </h2>
-              <span
-                className="mx-auto text-center block text-gray-700 text-sm"
-                style={poppins_400.style}
-              >
-                Lets pick up where you left off!
-              </span>
+              <Description description="Lets pick up where you left off!" />
               <div className="my-8">
                 <label htmlFor="email" className="block mb-1 font-medium">
                   Email

@@ -23,6 +23,7 @@
       "@assests/*": ["./app/assests/*"],
       "@data/*": ["./app/data/*"],
       "@fonts/*": ["./app/fonts/*"],
+      "@validations/*": ["./validations/*"],
 
     }
   },
