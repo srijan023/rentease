@@ -1,22 +1,34 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import signin from "@assests/signin.svg";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useRef, useState } from "react";
+import { loginSchema } from "@validations/zodSchemas/personSchema";
+import { z } from "zod";
+import { abril } from "@fonts/font";
 import Button from "@components/Button";
-import { abril, poppins_400 } from "@fonts/font";
-import { useState } from "react";
 import RentEase from "@components/RentEase";
 import Description from "./Description";
+import signin from "@assests/signin.svg";
 
 interface SignInModalProps {
   show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+type SignInFormData = z.infer<typeof loginSchema>;
+
 export default function SignInModal({ show, setShow }: SignInModalProps) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<SignInFormData>({
+    resolver: zodResolver(loginSchema),
+  });
 
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
@@ -30,45 +42,39 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
         !modalContentRef.current.contains(event.target as Node)
       ) {
         setShow(false);
-        setEmail("");
-        setPassword("");
+        reset();
         setError("");
       }
     };
 
     const backdropElement = backdropRef.current;
-
     backdropElement?.addEventListener("click", handleOutsideClick);
 
     return () => {
       backdropElement?.removeEventListener("click", handleOutsideClick);
     };
-  }, [show, setShow]);
+  }, [show, setShow, reset]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const onSubmit = async (data: SignInFormData) => {
     try {
       const response = await fetch("/api/users/login", {
         method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
-      if (!response.ok) throw new Error(data.error);
+      if (!response.ok) throw new Error(result.error);
 
-      // TODO: Push another route instead of alert and Proper error handling and error display in ui
       alert("Login Successful!");
       setShow(false);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
-        console.log(err);
+        console.error(err.message);
       } else {
-        setError("An unexpected error occurred.");
-        console.log("Unexpected error: ", err);
+        console.error("An unexpected error occurred.");
       }
     }
   };
@@ -94,10 +100,13 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
                 alt="sign in illustration"
                 priority
                 width={420}
-              ></Image>
+              />
             </div>
           </div>
-          <form className="space-y-4 flex items-center" onSubmit={handleSubmit}>
+          <form
+            className="space-y-4 flex items-center"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <div className="px-16">
               <h2
                 className="font-bold text-4xl text-center mb-4"
@@ -106,7 +115,7 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
                 Welcome Back
               </h2>
               <Description description="Lets pick up where you left off!" />
-              <div className="my-8">
+              <div className="my-6">
                 <label htmlFor="email" className="block mb-1 font-medium">
                   Email
                 </label>
@@ -115,9 +124,8 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
                   id="email"
                   className="w-full px-4 py-2 border border-gray-300 rounded-full"
                   placeholder="Enter Your Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   required
+                  {...register("email")}
                 />
               </div>
               <div>
@@ -129,23 +137,32 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
                   id="password"
                   className="w-full px-4 py-2 border border-gray-300 rounded-full"
                   placeholder="Enter Your Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   required
+                  {...register("password")}
                 />
               </div>
-              {error && <span className="max-w-xs block">{error}</span>}
+              <p
+                className={`text-red-500 min-h-6 mt-2 px-2 max-w-sm max-h-12 overflow-hidden ${errors.email?.message || errors.password?.message ? "visible" : "invisible"} ${error ? "hidden" : ""}`}
+              >
+                Invalid email or password!!
+              </p>
+              <p
+                className={`text-red-500 min-h-6 mt-2 px-2 max-w-sm max-h-12 overflow-hidden ${errors.email?.message || errors.password?.message ? "hidden" : ""} ${error ? "visible" : "hidden"}`}
+              >
+                {error}
+              </p>
+
               <Button
                 label="Sign In"
                 type="submit"
-                classes="bg-black text-white mx-auto block mt-12 mb-6"
+                classes="bg-black text-white mx-auto block mt-5 mb-6"
               />
-              <span className="mx-auto text-center block text-lg">
+              <p className="mx-auto text-center text-lg">
                 Do not have an account?&nbsp;
                 <Link href="/signup" className="text-blue-500">
                   Sign Up
                 </Link>
-              </span>
+              </p>
             </div>
           </form>
         </div>
