@@ -8,8 +8,15 @@ const hundredYearsAgo = new Date();
 hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100);
 
 export const loginSchema = z.object({
-  email: z.string({ required_error: "Email field is required" }).email(),
-  password: z.string().min(6, "Password must be atleast 6 characters long"),
+  email: z
+    .string({ required_error: "Email field is required" })
+    .email("Invalid email address"),
+  password: z
+    .string()
+    .min(
+      6,
+      "Password must be atleast 6 characters long helhr lherhleh rerhle rh ehrl her",
+    ),
 });
 
 export const personSchema = z
