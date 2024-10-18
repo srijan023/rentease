@@ -75,6 +75,12 @@ export async function middleware(request: NextRequest) {
 
     return response
   }
+
+  if (request.nextUrl.pathname.startsWith("/api/admin/")) {
+    console.log("Middleware check going on...")
+
+    return NextResponse.next()
+  }
 }
 
 // See "Matching Paths" below to learn more
@@ -84,6 +90,7 @@ export const config = {
     "/signup",
     "/api/users/me",
     "/api/users/verifyEmail/:path*",
-    "/api/users/resetPassword"
+    "/api/users/resetPassword",
+    "/api/admin/:path*"
   ]
 }

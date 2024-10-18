@@ -43,6 +43,19 @@ details provided.</p><br>
 <p>Please do not reply to this email, as it was sent from an unattended mailbox.</p>
 `
     }
+  } else if (emailType == "ADMIN_PASS") {
+    mailOptions = {
+      from: process.env.EMAIL_NAME,
+      to: email,
+      subject: "Admin account initialization",
+      text: `Use this as your intial password to login and then change your password. ${token}`,
+      html: `<h1>Initialize admin password</h1><br><p>This email is sent for your initial login.
+Use the password provided below to login to your admin accound and then change you password.</p><br>
+<p style="padding: 5px; background-color:#123456; color:white">${token}</p>
+details provided.</p><br>
+<p>Please do not share this password with anyone.</p>
+`
+    }
   }
 
   if (!mailOptions) {
@@ -67,4 +80,3 @@ details provided.</p><br>
     }
   }
 }
-

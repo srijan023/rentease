@@ -14,18 +14,18 @@ datasource db {
 }
 
 model person {
-  id                        Int       @id @default(autoincrement())
+  id                        Int                 @id @default(autoincrement())
   name                      String
-  email                     String    @unique
+  email                     String              @unique
   password                  String
   backup_email              String?
   contact                   String
-  dob                       DateTime  @db.Date
+  dob                       DateTime            @db.Date
 
-  ssn                       String    @default("000-00-0000")
+  ssn                       String              @default("000-00-0000")
   no_ssn_reason             String?
 
-  isVerified                Boolean   @default(false)
+  isVerified                Boolean             @default(false)
   verificationToken         String?
   verificationExpiry        DateTime?
 
@@ -43,41 +43,42 @@ model person {
   balance_statement         String
 
   // Contacts
-  emergency_contact         auxPerson? @relation("EmergencyContact", fields: [e_con_id], references: [id])
+  emergency_contact         auxPerson?          @relation("EmergencyContact", fields: [e_con_id], references: [id])
   e_con_id                  Int?
-  prev_landlord             auxPerson? @relation("PreviousLandlord", fields: [landlord_id], references: [id])
+  prev_landlord             auxPerson?          @relation("PreviousLandlord", fields: [landlord_id], references: [id])
   landlord_id               Int?
   no_residence_detail       String?
 
   // Tenant details
-  is_active_tenant          Boolean @default(false)
+  is_active_tenant          Boolean             @default(false)
   property_rented           property[]
 
   // Relations to other models
   transactions              transaction[]
   maintenance_requests      maintenance[]
-  messages_received         message[] @relation("ReceivedMessages")
-  notifications             notificationRead[] @relation("PersonsNotificationReads")
+  messages_received         message[]           @relation("ReceivedMessages")
+  notifications             notificationRead[]  @relation("PersonsNotificationReads")
 }
 
 model property {
-  id                    Int       @id @default(autoincrement())
+  id                    Int         @id @default(autoincrement())
+  name                  String
+  description           String?
   leased                Boolean
-  leased_by             person?    @relation(fields: [tenant_id], references: [id])
+  leased_by             person?     @relation(fields: [tenant_id], references: [id])
   tenant_id             Int?
 
   lot_size              Float
   structure_area        Float?
-  parking_features      String?
-  stories               String
+  parking_feature       String?
+  stories               Int?
   home_type             String
   sewer                 String?
   water                 String?
 
   state                 String
-  region                String
-  sub_division          String?
-  street                String?
+  city                  String
+  location              String?
 
   bedrooms              Int
   bathrooms             Int
@@ -90,9 +91,34 @@ model property {
   property_subtype      String
   architecture_style    String
   year_built            String
+  warrenty              Boolean
 
-  maintenance_requests maintenance[]
-  transactions transaction[]
+  construction_material String?
+  roof                  String?
+
+  monthly_rent          Int
+
+  assets                asset[]
+
+  maintenance_requests  maintenance[]
+  transactions          transaction[]
+}
+
+model asset {
+  id            Int       @id @default(autoincrement())
+  name          String
+  link          String
+  property      property  @relation(fields: [property_id], references: [id], onDelete: Cascade)
+  property_id   Int
+}
+
+model admin{
+  id            Int       @id @default(autoincrement())
+  name          String
+  email         String    @unique
+  password      String
+  loginCode     String?
+  loginExpiry   String?
 }
 
 
@@ -117,7 +143,8 @@ enum auxPersonType {
 model maintenance {
   id                  Int               @id @default(autoincrement())
   request_date        DateTime          @default(now())
-  subject             String
+  type                String
+  title               String
   description         String
   status              maintenanceStatus @default(Pending)
   person              person            @relation(fields: [person_id], references: [id])
@@ -155,9 +182,9 @@ model message {
 }
 
 model notification {
-  id          Int       @id @default(autoincrement())
+  id          Int                   @id @default(autoincrement())
   content     String
-  created_at  DateTime  @default(now())
+  created_at  DateTime              @default(now())
   reads       notificationRead[]
 }
 
