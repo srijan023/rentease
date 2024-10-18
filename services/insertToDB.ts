@@ -1,6 +1,7 @@
 import prisma from "@/db"
-import { auxPersonType, typeAuxPerson, typePerson } from "@/validations/propsTypes"
+import { auxPersonType, typeAuxPerson, typePerson, typeProperty } from "@/validations/propsTypes"
 import { findElseInsertAuxUser } from "./findElseInsert"
+import { NextResponse } from "next/server"
 
 export async function insertRelationalDetailsSignup(
   emergency_contact: typeAuxPerson,
@@ -40,6 +41,48 @@ export async function insertRelationalDetailsSignup(
   })
 
   return result
+}
+
+export async function insertPropertyInfo(reqData: typeProperty) {
+  const { assets: assetsData, ...propertyInfo } = reqData;
+
+  try {
+
+    if (!Array.isArray(assetsData)) {
+      return {
+        success: false,
+        error: "Invalid format for assets data, its should be an array"
+      }
+    }
+
+    const result = await prisma.property.create({
+      data: {
+        ...propertyInfo,
+        assets: {
+          create: assetsData.map((asset: any) => ({
+            name: asset.name,
+            link: asset.link
+          })),
+        }
+      }
+    })
+
+    if (result.id) {
+      return {
+        success: true,
+        message: "Data inserted into the database"
+      }
+    } else {
+      return {
+        success: false
+      }
+    }
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message
+    }
+  }
 }
 
 
