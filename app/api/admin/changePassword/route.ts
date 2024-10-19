@@ -8,6 +8,7 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json()
 
     const { email, password, newPassword } = reqBody
+    console.log(reqBody)
     const isValid = await validateAdminCredentials(email, password);
 
     if (!isValid.success) {
@@ -16,6 +17,7 @@ export async function POST(request: NextRequest) {
         success: false
       }, { status: isValid.status })
     }
+
 
     const hashedPassword = await hashPassword(newPassword);
 

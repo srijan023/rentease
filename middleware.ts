@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { validateJWTToken } from './utils/JWTTokens'
 import { tokenData } from './validations/propsTypes'
-import { insertTokenDataOnHeaders } from './helpers/tokenizeHeader'
+import { insertTokenDataOnHeaders } from './utils/tokenizeHeader'
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
@@ -53,7 +53,9 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  if (request.nextUrl.pathname.startsWith("/api/users/resetPassword")) {
+  if (request.nextUrl.pathname.startsWith("/api/users/resetPassword") ||
+    request.nextUrl.pathname.startsWith("/api/users/requestMaintenance")) {
+    console.log("This is run")
     const isValid = await validateJWTToken(request)
     if (!isValid.success) {
       return NextResponse.json({
@@ -91,6 +93,7 @@ export const config = {
     "/api/users/me",
     "/api/users/verifyEmail/:path*",
     "/api/users/resetPassword",
-    "/api/admin/:path*"
+    "/api/admin/:path*",
+    "/api/users/requestMaintenance"
   ]
 }

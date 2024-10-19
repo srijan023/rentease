@@ -10,48 +10,6 @@ export async function POST(request: NextRequest) {
     const { email, password } = reqBody;
 
     const person = await validateAdminCredentials(email, password)
-    // const isValidInput = validateLoginRequest(reqBody);
-    //
-    // if (!isValidInput.success) {
-    //   return NextResponse.json(
-    //     {
-    //       message: "Invalid data format",
-    //       error: isValidInput.errors,
-    //     },
-    //     { status: 400 },
-    //   );
-    // }
-    //
-    // const { email, password } = reqBody;
-    //
-    // const existingUser = await findExistingAdmin(email);
-    // if (!existingUser.success) {
-    //   return NextResponse.json(
-    //     {
-    //       error: "Incorrect email provided",
-    //     },
-    //     { status: 404 },
-    //   );
-    // }
-    //
-    // const person = existingUser.data;
-    //
-    // if (!person) {
-    //   throw {
-    //     message: "Unexpected error occured"
-    //   };
-    // }
-    //
-    // const isValidPassword = validateHashedPasswords(password, person.password);
-    //
-    // if (!isValidPassword) {
-    //   return NextResponse.json(
-    //     {
-    //       error: "Incorrect password",
-    //     },
-    //     { status: 401 },
-    //   );
-    // }
 
     if (!person.success) {
       return NextResponse.json({

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { findExistingUser } from "@/services/findFromDB";
 import { validateHashedPasswords } from "@/utils/passwordHashes";
 import { generateJWTToken } from "@/utils/JWTTokens";
 import { validateLoginRequest } from "@/validations/personValidation";
+import { findExistingUser } from "@/services/findUserFromDB";
 
 export async function POST(request: NextRequest) {
   try {

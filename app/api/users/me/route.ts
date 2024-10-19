@@ -1,4 +1,4 @@
-import { findUserDetailsFromId } from "@/services/findFromDB";
+import { findUserDetailsFromId } from "@/services/findUserFromDB";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

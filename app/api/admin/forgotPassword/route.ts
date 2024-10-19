@@ -1,4 +1,4 @@
-import { createRandomString } from "@/helpers/createRandomString"
+import { createRandomString } from "@/utils/createRandomString"
 import { insertPasswordToDB } from "@/services/adminPasswordManagement"
 import { sendEmail } from "@/services/sendEmails"
 import { hashPassword } from "@/utils/passwordHashes"
@@ -13,7 +13,6 @@ export async function GET() {
       }, { status: 500 })
     }
     const string = createRandomString(10)
-
 
     const hashedPassword = await hashPassword(string);
 

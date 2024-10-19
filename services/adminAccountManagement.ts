@@ -14,7 +14,6 @@ export async function findExistingAdmin(email: string) {
       }
     }
 
-    console.log(admin)
     return {
       success: true,
       data: admin

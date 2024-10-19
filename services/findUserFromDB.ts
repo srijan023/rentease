@@ -58,13 +58,20 @@ export async function findUserDetailsFromId(id: number) {
         },
       },
       no_residence_detail: true,
+      is_active_tenant: true,
+      property_rented: {
+        select: {
+          id: true
+        }
+      }
     },
   });
 
   if (!res) {
     return {
       success: false,
-      message: "No user with that id exists",
+      error: "No user with that id exists",
+      status: 404
     };
   }
 
@@ -72,4 +79,35 @@ export async function findUserDetailsFromId(id: number) {
     success: true,
     data: res,
   };
+}
+
+export async function getAllUsers() {
+  try {
+    const data = await prisma.person.findMany({
+      select: {
+        id: true,
+        name: true,
+        contact: true,
+        email: true,
+        is_active_tenant: true,
+        property_rented: {
+          select: {
+            name: true
+          }
+        }
+      }
+    })
+
+    return {
+      success: true,
+      data
+    }
+
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message,
+      status: 500
+    }
+  }
 }

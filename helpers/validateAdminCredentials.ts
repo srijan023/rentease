@@ -4,7 +4,6 @@ import { validateLoginRequest } from "@/validations/personValidation";
 
 export async function validateAdminCredentials(email: string, password: string) {
   try {
-
     const reqBody = { email, password }
     const isValidInput = validateLoginRequest(reqBody)
 
@@ -35,7 +34,7 @@ export async function validateAdminCredentials(email: string, password: string) 
       }
     }
 
-    const isValidPassword = validateHashedPasswords(password, person.password);
+    const isValidPassword = await validateHashedPasswords(password, person.password);
 
     if (!isValidPassword) {
       return {
