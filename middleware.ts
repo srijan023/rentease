@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
-import { validateJWTToken } from './utils/JWTTokens'
+import { validateAdminToken, validateJWTToken } from './utils/JWTTokens'
 import { tokenData } from './validations/propsTypes'
 import { insertTokenDataOnHeaders } from './utils/tokenizeHeader'
 
@@ -29,34 +29,14 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // actual authentication middleware, verifying user before making the request
-  // based on the saved JWT token
-  if (request.nextUrl.pathname.startsWith("/api/users/me") ||
-    request.nextUrl.pathname.startsWith("/api/users/verifyEmail")) {
-    const isValid = await validateJWTToken(request);
-
-    if (!isValid.success && !isValid.data?.id) {
-      return NextResponse.rewrite(new URL("/signup", request.url))
+  if (request.nextUrl.pathname.startsWith("/api/users") ||
+    request.nextUrl.pathname.startsWith("/api/admin")) {
+    let isValid
+    if (request.nextUrl.pathname.startsWith("/api/admin")) {
+      isValid = await validateAdminToken(request)
+    } else {
+      isValid = await validateJWTToken(request)
     }
-
-    const tokenInfo = isValid.data as tokenData
-
-    const requestHeaders = insertTokenDataOnHeaders(tokenInfo, request)
-
-    const response = NextResponse.next({
-      request: {
-        // New request headers
-        headers: requestHeaders,
-      },
-    })
-
-    return response
-  }
-
-  if (request.nextUrl.pathname.startsWith("/api/users/resetPassword") ||
-    request.nextUrl.pathname.startsWith("/api/users/requestMaintenance")) {
-    console.log("This is run")
-    const isValid = await validateJWTToken(request)
     if (!isValid.success) {
       return NextResponse.json({
         success: false,
@@ -74,14 +54,7 @@ export async function middleware(request: NextRequest) {
         headers: requestHeaders,
       },
     })
-
     return response
-  }
-
-  if (request.nextUrl.pathname.startsWith("/api/admin/")) {
-    console.log("Middleware check going on...")
-
-    return NextResponse.next()
   }
 }
 
@@ -90,10 +63,7 @@ export const config = {
   matcher: [
     "/profile",
     "/signup",
-    "/api/users/me",
-    "/api/users/verifyEmail/:path*",
-    "/api/users/resetPassword",
+    "/api/users/:path*",
     "/api/admin/:path*",
-    "/api/users/requestMaintenance"
   ]
 }
