@@ -22,7 +22,7 @@ export default function BasicForm({
 }: BasicFormProps) {
   return (
     <div className="flex h-screen items-center">
-      <div className="w-1/2 bg-[#fff1f1] h-full flex items-center justify-center">
+      <div className="w-1/2 bg-customRed-95 h-full flex items-center justify-center">
         <div>
           <RentEase classes="mb-12" />
           <Description
@@ -114,7 +114,7 @@ export default function BasicForm({
         <p className="text-center mt-4">
           Already have an account?{" "}
           <span
-            className="text-blue-500 cursor-pointer"
+            className="text-primary-50 cursor-pointer"
             onClick={() => setShowModal(true)}
           >
             Sign In

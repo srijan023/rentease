@@ -88,7 +88,7 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
     >
       <div ref={modalContentRef} className="bg-white rounded-2xl">
         <div className="flex">
-          <div className="bg-[#fff1f1] rounded-l-2xl p-8">
+          <div className="bg-customRed-95 rounded-l-2xl p-8">
             <RentEase />
             <Description
               description="All your rental needs in one place and securely maintained"
@@ -142,12 +142,12 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
                 />
               </div>
               <p
-                className={`text-red-500 min-h-6 mt-2 px-2 max-w-sm max-h-12 overflow-hidden ${errors.email?.message || errors.password?.message ? "visible" : "invisible"} ${error ? "hidden" : ""}`}
+                className={`text-customRed-50 min-h-6 mt-2 px-2 max-w-sm max-h-12 overflow-hidden ${errors.email?.message || errors.password?.message ? "visible" : "invisible"} ${error ? "hidden" : ""}`}
               >
                 Invalid email or password!!
               </p>
               <p
-                className={`text-red-500 min-h-6 mt-2 px-2 max-w-sm max-h-12 overflow-hidden ${errors.email?.message || errors.password?.message ? "hidden" : ""} ${error ? "visible" : "hidden"}`}
+                className={`text-customRed-50 min-h-6 mt-2 px-2 max-w-sm max-h-12 overflow-hidden ${errors.email?.message || errors.password?.message ? "hidden" : ""} ${error ? "visible" : "hidden"}`}
               >
                 {error}
               </p>
@@ -159,7 +159,7 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
               />
               <p className="mx-auto text-center text-lg">
                 Do not have an account?&nbsp;
-                <Link href="/signup" className="text-blue-500">
+                <Link href="/signup" className="text-primary-50">
                   Sign Up
                 </Link>
               </p>
