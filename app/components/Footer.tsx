@@ -8,7 +8,7 @@ import { abril, poppins_300 } from "@fonts/font";
 
 export default function Footer() {
   return (
-    <div className="h-max bg-[var(--primary-black)] text-white">
+    <div className="h-max bg-secondary-10 text-white">
       <Container>
         <h2
           className="text-5xl max-w-2xl mx-auto pt-14 text-center"

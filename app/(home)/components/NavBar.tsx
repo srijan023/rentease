@@ -14,7 +14,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="text-[var(--primary-black)] fixed z-50 left-1/2 top-0 pt-10 pb-4 transform -translate-x-1/2 bg-[var(--background-white)] w-full">
+      <nav className="text-secondary-10 fixed z-50 left-1/2 top-0 pt-10 pb-4 transform -translate-x-1/2 bg-customRed-95 w-full">
         <Container classes={"flex justify-between items-center list-none"}>
           <Link href={"/"}>
             <RentEase />
@@ -37,7 +37,7 @@ export default function NavBar() {
           </ul>
           <li>
             <Button
-              classes="border-black border-solid border-[1px] hover:bg-[var(--primary-black)] hover:text-white"
+              classes="border-black border-solid border-[1px] hover:bg-secondary-10 hover:text-white"
               label="Sign In"
               onClick={() => setShowModal(true)}
             />

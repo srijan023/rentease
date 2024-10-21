@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       };
     }
 
-    const isValidPassword = validateHashedPasswords(password, person.password);
+    const isValidPassword = await validateHashedPasswords(password, person.password);
 
     if (!isValidPassword) {
       return NextResponse.json(

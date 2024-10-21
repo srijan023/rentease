@@ -1,3 +1,4 @@
+import { findExistingAdmin } from "@/services/adminAccountManagement"
 import { tokenData } from "@/validations/propsTypes"
 import { jwtVerify, SignJWT } from "jose"
 import { NextRequest, NextResponse } from "next/server"
@@ -49,6 +50,52 @@ export async function validateJWTToken(request: NextRequest) {
     return {
       success: false,
       error: "Token could not be verified"
+    }
+  }
+}
+
+export async function validateAdminToken(request: NextRequest) {
+  const token = request.cookies.get("token")?.value || ""
+
+  if (!token) {
+    return {
+      success: false,
+      error: "Token is not present",
+      status: 401
+    }
+  }
+
+  try {
+    const key = new TextEncoder().encode(process.env.JWT_SECRET || "defaultSecret")
+    const { payload, protectedHeader: _ } = await jwtVerify(token, key)
+
+    const email = payload.email
+    if (!email) {
+      return {
+        success: false,
+        error: "Email is not present on payload",
+        status: 401
+      }
+    }
+    const response = await findExistingAdmin(email.toString())
+    if (!response.success) {
+      return {
+        success: false,
+        error: "Admin could not be verified",
+        status: 401
+      }
+    }
+
+    return {
+      success: true,
+      data: response.data
+    }
+
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message,
+      status: 500
     }
   }
 }

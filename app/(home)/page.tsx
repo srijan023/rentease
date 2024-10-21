@@ -12,13 +12,13 @@ export default function Home() {
     <>
       <Container>
         <h2
-          className="text-6xl w-max mx-auto mt-48 mb-14 text-[#001a42]"
+          className="text-6xl w-max mx-auto mt-48 mb-14 text-primary-10"
           style={abril.style}
         >
           Browse, Apply, and Move In
         </h2>
         <p
-          className="max-w-2xl mx-auto text-center text-2xl text-[#44474f] tracking-wide "
+          className="max-w-2xl mx-auto text-center text-2xl text-neutral-30 tracking-wide "
           style={poppins_700.style}
         >
           A personalized property rental service where clients can easily browse
@@ -26,7 +26,7 @@ export default function Home() {
           directly by the landlord for a seamless experience.
         </p>
         <Button
-          classes={"bg-[var(--primary-black)] text-white mx-auto block my-24"}
+          classes={"bg-secondary-10 text-white mx-auto block my-24"}
           label="Browse Properties"
         />
         <div className="h-96 relative z-0 rounded-3xl text-white text-center">
@@ -39,7 +39,7 @@ export default function Home() {
             fill
           />
         </div>
-        <div className="my-28 flex flex-wrap justify-around gap-y-24 ">
+        <div className="my-28 flex flex-wrap w-5/6 justify-center mx-auto gap-x-20 gap-y-24 ">
           {featureData.map((item, index) => {
             return (
               <FeatureCard
@@ -51,7 +51,7 @@ export default function Home() {
             );
           })}
         </div>
-        <h2 className="text-5xl my-20 text-[#001a42]" style={abril.style}>
+        <h2 className="text-5xl my-20 text-primary-10" style={abril.style}>
           What are you looking for?
         </h2>
         <div className="mb-20">
