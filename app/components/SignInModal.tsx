@@ -116,7 +116,7 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
               </h2>
               <Description description="Lets pick up where you left off!" />
               <div className="my-6">
-                <label htmlFor="email" className="block mb-1 font-medium">
+                <label htmlFor="email" className="mb-1 ml-2 font-medium">
                   Email
                 </label>
                 <input
@@ -124,12 +124,11 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
                   id="email"
                   className="w-full px-4 py-2 border border-gray-300 rounded-full"
                   placeholder="Enter Your Email"
-                  required
                   {...register("email")}
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block mb-1 font-medium">
+                <label htmlFor="password" className="mb-1 ml-2 font-medium">
                   Password
                 </label>
                 <input
@@ -137,7 +136,6 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
                   id="password"
                   className="w-full px-4 py-2 border border-gray-300 rounded-full"
                   placeholder="Enter Your Password"
-                  required
                   {...register("password")}
                 />
               </div>

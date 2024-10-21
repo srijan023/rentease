@@ -5,6 +5,7 @@ import { z } from "zod";
 import { abril } from "@fonts/font";
 import Description from "@components/Description";
 import RentEase from "@/app/components/RentEase";
+import Button from "@components/Button";
 import signup1 from "@assests/signup1.svg";
 
 type FormData = z.infer<typeof personSchema>;
@@ -13,16 +14,18 @@ interface BasicFormProps {
   register: UseFormRegister<FormData>;
   errors: FieldErrors<FormData>;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  handleNextPage: () => void;
 }
 
 export default function BasicForm({
   register,
   errors,
   setShowModal,
+  handleNextPage,
 }: BasicFormProps) {
   return (
-    <div className="flex h-screen items-center">
-      <div className="w-1/2 bg-customRed-95 h-full flex items-center justify-center">
+    <div className="flex min-h-screen">
+      <div className="w-1/2 bg-[var(--custom-red-95)] min-h-full flex items-center justify-center">
         <div>
           <RentEase classes="mb-12" />
           <Description
@@ -40,86 +43,114 @@ export default function BasicForm({
           </div>
         </div>
       </div>
-      <div className="w-1/2">
-        <h2 className="text-4xl text-center" style={abril.style}>
-          Create Your Account
-        </h2>
-        <Description description="Join us today to simplify your property search and application process" />
-        <div className="flex justify-center">
-          <div className="border px-4 py-2 rounded-full bg-gray-100">
-            Personal Details
+      <div className="w-1/2 px-20 min-h-full flex items-center justify-center">
+        <div className="h-max">
+          <h2 className="text-5xl text-center mt-8 mb-4" style={abril.style}>
+            Create Your Account
+          </h2>
+          <Description
+            description="Join us today to simplify your property search and application process"
+            classes="tracking-wide"
+          />
+          <div className="relative w-full my-8">
+            <hr className="absolute border-0 h-[1px] bg-black w-full top-1/2 inset-0" />
+            <div className="relative z-10 bg-[var(--background-white)] w-max mx-auto  h-full text-lg border border-black rounded-xl px-3">
+              Personal Details
+            </div>
           </div>
+          <div className="px-28">
+            <div className="mb-6">
+              <label htmlFor="name" className="mb-1 ml-2 font-medium">
+                Name <span className="text-red-500 font-extrabold">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="w-full px-4 py-2 border border-gray-300 rounded-full"
+                placeholder="Enter Your Name"
+                {...register("name")}
+              />
+              {errors.name && (
+                <p className="text-red-500">{errors.name.message}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="email" className="mb-1 ml-2 font-medium">
+                Email <span className="text-red-500 font-extrabold">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full px-4 py-2 border border-gray-300 rounded-full"
+                placeholder="Enter Your Email"
+                {...register("email")}
+              />
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
+            </div>
+            <div className="my-6">
+              <label htmlFor="backup" className="mb-1 ml-2 font-medium">
+                Recovery Email
+              </label>
+              <input
+                id="backup"
+                type="email"
+                className="w-full px-4 py-2 border border-gray-300 rounded-full"
+                placeholder="Enter Your Recovery Email"
+                {...register("backup_email")}
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="mb-1 ml-2 font-medium">
+                Password <span className="text-red-500 font-extrabold">*</span>
+              </label>
+              <input
+                id="password"
+                type="password"
+                className="w-full px-4 py-2 border border-gray-300 rounded-full"
+                placeholder="Enter Your Password"
+                {...register("password")}
+              />
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+              )}
+            </div>
+            <div className="my-6">
+              <label htmlFor="contact" className="mb-1 ml-2 font-medium">
+                Phone Number
+                <span className="text-red-500 font-extrabold">*</span>
+              </label>
+              <input
+                id="contact"
+                type="tel"
+                className="w-full px-4 py-2 border border-gray-300 rounded-full"
+                placeholder="Enter Your Phone Number"
+                {...register("contact")}
+              />
+              {errors.contact && (
+                <p className="text-red-500">{errors.contact.message}</p>
+              )}
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <Button
+              label="Next"
+              onClick={handleNextPage}
+              classes="bg-black text-white mt-2"
+            />
+          </div>
+          <hr className="border-black my-8" />
+          <p className="text-center mb-8 text-lg">
+            Already have an account?&nbsp;
+            <span
+              className="text-blue-500 cursor-pointer"
+              onClick={() => setShowModal(true)}
+            >
+              Sign In
+            </span>
+          </p>
         </div>
-        <div>
-          <label>
-            Name <span className="text-red-500 font-extrabold">*</span>
-          </label>
-          <input
-            {...register("name")}
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Enter Your Name"
-          />
-          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-        </div>
-        <div>
-          <label>Email *</label>
-          <input
-            {...register("email")}
-            type="email"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Enter Your Email"
-          />
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-        <div>
-          <label>Recovery Email</label>
-          <input
-            {...register("backup_email")}
-            type="email"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Enter Your Recovery Email"
-          />
-        </div>
-        <div>
-          <label>Password *</label>
-          <input
-            {...register("password")}
-            type="password"
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Enter Your Password"
-          />
-          {errors.password && (
-            <p className="text-red-500">{errors.password.message}</p>
-          )}
-        </div>
-        <div>
-          <label>Phone Number *</label>
-          <input
-            {...register("contact")}
-            className="w-full px-4 py-2 border rounded"
-            placeholder="Enter Your Phone Number"
-          />
-          {errors.contact && (
-            <p className="text-red-500">{errors.contact.message}</p>
-          )}
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-black text-white py-2 rounded mt-4"
-        >
-          Next
-        </button>
-        <p className="text-center mt-4">
-          Already have an account?{" "}
-          <span
-            className="text-primary-50 cursor-pointer"
-            onClick={() => setShowModal(true)}
-          >
-            Sign In
-          </span>
-        </p>
       </div>
     </div>
   );
