@@ -3,7 +3,7 @@ import { poppins_400 } from "@fonts/font";
 
 interface ButtonProps {
   label: string;
-  type?: "submit" | "reset" | undefined;
+  type?: "submit" | "reset" | "button" | undefined;
   classes?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }

@@ -5,11 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 import { loginSchema } from "@validations/zodSchemas/personSchema";
 import { z } from "zod";
-import { abril } from "@fonts/font";
+import { usePathname } from "next/navigation";
 import Button from "@components/Button";
 import RentEase from "@components/RentEase";
 import Description from "./Description";
 import signin from "@assests/signin.svg";
+import Subtitle from "./Subtitle";
 
 interface SignInModalProps {
   show: boolean;
@@ -32,6 +33,8 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
 
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalContentRef = useRef<HTMLDivElement>(null);
+
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!show) return;
@@ -86,10 +89,7 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
       ref={backdropRef}
       className="w-screen h-screen fixed inset-0 flex items-center justify-center z-[55] backdrop-filter backdrop-blur-sm bg-gray-300 bg-opacity-70"
     >
-      <div
-        ref={modalContentRef}
-        className="rounded-2xl bg-white border border-primary-10"
-      >
+      <div ref={modalContentRef} className="rounded-2xl bg-white">
         <div className="flex">
           <div className="bg-customRed-95 rounded-l-2xl p-8">
             <RentEase />
@@ -106,17 +106,9 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
               />
             </div>
           </div>
-          <form
-            className="space-y-4 flex items-center"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form className="flex items-center" onSubmit={handleSubmit(onSubmit)}>
             <div className="px-16">
-              <h2
-                className="font-bold text-4xl text-center mb-4"
-                style={abril.style}
-              >
-                Welcome Back
-              </h2>
+              <Subtitle classes="mb-4" text="Welcome Back" />
               <Description description="Lets pick up where you left off!" />
               <div className="my-6">
                 <label htmlFor="email" className="mb-1 ml-2 font-medium">
@@ -152,18 +144,19 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
               >
                 {error}
               </p>
-
               <Button
                 label="Sign In"
                 type="submit"
                 classes="bg-black text-white mx-auto block mt-5 mb-6"
               />
-              <p className="mx-auto text-center text-lg">
-                Do not have an account?&nbsp;
-                <Link href="/signup" className="text-primary-50">
-                  Sign Up
-                </Link>
-              </p>
+              {pathname !== "/signup" && (
+                <p className="mx-auto text-center text-lg">
+                  Do not have an account?&nbsp;
+                  <Link href="/signup" className="text-primary-50">
+                    Sign Up
+                  </Link>
+                </p>
+              )}
             </div>
           </form>
         </div>

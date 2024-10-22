@@ -19,6 +19,7 @@ export default function SignUpForm() {
     register,
     handleSubmit,
     formState: { errors },
+    // watch,
     trigger,
   } = useForm<FormData>({
     resolver: zodResolver(personSchema),
@@ -51,7 +52,7 @@ export default function SignUpForm() {
             handleNextPage={handleNextPage}
           />
         )}
-        {formPage === 2 && <LegalForm />}
+        {formPage === 2 && <LegalForm register={register} errors={errors} />}
       </form>
       <SignInModal show={showModal} setShow={setShowModal} />
     </>
