@@ -86,7 +86,10 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
       ref={backdropRef}
       className="w-screen h-screen fixed inset-0 flex items-center justify-center z-[55] backdrop-filter backdrop-blur-sm bg-gray-300 bg-opacity-70"
     >
-      <div ref={modalContentRef} className="bg-white rounded-2xl">
+      <div
+        ref={modalContentRef}
+        className="rounded-2xl bg-white border border-primary-10"
+      >
         <div className="flex">
           <div className="bg-customRed-95 rounded-l-2xl p-8">
             <RentEase />

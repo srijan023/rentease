@@ -25,7 +25,7 @@ export default function BasicForm({
 }: BasicFormProps) {
   return (
     <div className="flex min-h-screen">
-      <div className="w-1/2 bg-[var(--custom-red-95)] min-h-full flex items-center justify-center">
+      <div className="w-1/2 bg-customRed-95 min-h-full flex items-center justify-center">
         <div>
           <RentEase classes="mb-12" />
           <Description
@@ -54,7 +54,7 @@ export default function BasicForm({
           />
           <div className="relative w-full my-8">
             <hr className="absolute border-0 h-[1px] bg-black w-full top-1/2 inset-0" />
-            <div className="relative z-10 bg-[var(--background-white)] w-max mx-auto  h-full text-lg border border-black rounded-xl px-3">
+            <div className="relative z-10 bg-white w-max mx-auto  h-full text-lg border border-black rounded-xl px-3">
               Personal Details
             </div>
           </div>
