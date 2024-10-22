@@ -65,5 +65,6 @@ export const config = {
     "/signup",
     "/api/users/:path*",
     "/api/admin/:path*",
-  ]
+  ],
+  runtime: 'nodejs'
 }

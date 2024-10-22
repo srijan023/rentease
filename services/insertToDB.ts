@@ -1,7 +1,6 @@
 import prisma from "@/db"
 import { auxPersonType, typeAuxPerson, typePerson, typeProperty } from "@/validations/propsTypes"
 import { findElseInsertAuxUser } from "./findElseInsert"
-import { NextResponse } from "next/server"
 
 export async function insertRelationalDetailsSignup(
   emergency_contact: typeAuxPerson,

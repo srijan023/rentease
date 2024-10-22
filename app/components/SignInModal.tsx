@@ -6,11 +6,12 @@ import { useEffect, useRef, useState } from "react";
 import { loginSchema } from "@validations/zodSchemas/personSchema";
 import { z } from "zod";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Button from "@components/Button";
 import RentEase from "@components/RentEase";
 import Description from "./Description";
-import signin from "@assests/signin.svg";
 import Subtitle from "./Subtitle";
+import signin from "@assests/signin.svg";
 
 interface SignInModalProps {
   show: boolean;
@@ -21,6 +22,8 @@ type SignInFormData = z.infer<typeof loginSchema>;
 
 export default function SignInModal({ show, setShow }: SignInModalProps) {
   const [error, setError] = useState("");
+
+  const router = useRouter();
 
   const {
     register,
@@ -60,13 +63,17 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
 
   const onSubmit = async (data: SignInFormData) => {
     try {
-      const response = await fetch("/api/users/login", {
+      const response = await fetch("/api/auth/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       const result = await response.json();
+
+      if (result.success) {
+        router.push("/tenant");
+      }
 
       if (!response.ok) throw new Error(result.error);
 

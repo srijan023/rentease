@@ -1,18 +1,22 @@
-import { findExistingAdmin } from "@/services/adminAccountManagement"
 import { tokenData } from "@/validations/propsTypes"
 import { jwtVerify, SignJWT } from "jose"
 import { NextRequest, NextResponse } from "next/server"
 
 
-export async function generateJWTToken(email: string, id: number, name: string, response: NextResponse) {
-  const tokenData = {
+export async function generateJWTToken(email: string, id: number, name: string, response: NextResponse, type?: string) {
+  let tokenizingData: tokenData = {
     id: id,
     name: name,
-    email: email
+    email: email,
   }
+
+  if (type == "ADMIN") {
+    tokenizingData.role = "admin"
+  }
+
   const key = new TextEncoder().encode(process.env.JWT_SECRET || "defaultSecret")
   const alg = 'HS256'
-  const token = await new SignJWT(tokenData)
+  const token = await new SignJWT({ ...tokenizingData })
     .setProtectedHeader({ alg })
     .setIssuedAt()
     .setExpirationTime('10d')
@@ -77,18 +81,22 @@ export async function validateAdminToken(request: NextRequest) {
         status: 401
       }
     }
-    const response = await findExistingAdmin(email.toString())
-    if (!response.success) {
+
+    if (!(payload.role == "admin")) {
       return {
         success: false,
-        error: "Admin could not be verified",
+        error: "Not an admin",
         status: 401
       }
     }
 
     return {
       success: true,
-      data: response.data
+      data: {
+        email: payload.email,
+        id: payload.id,
+        name: payload.name
+      }
     }
 
   } catch (err: any) {
