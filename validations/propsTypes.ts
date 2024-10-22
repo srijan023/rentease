@@ -6,7 +6,8 @@ export enum auxPersonType {
 export interface tokenData {
   id: number,
   email: string,
-  name: string
+  name: string,
+  role?: string
 }
 
 export interface typeAuxPerson {

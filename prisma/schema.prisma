@@ -57,7 +57,6 @@ model person {
   transactions              transaction[]
   maintenance_requests      maintenance[]
   messages_received         message[]           @relation("ReceivedMessages")
-  notifications             notificationRead[]  @relation("PersonsNotificationReads")
 }
 
 model property {
@@ -181,28 +180,22 @@ model transaction {
 }
 
 model message {
-  id          Int       @id @default(autoincrement())
-  content     String
-  created_at  DateTime  @default(now())
-  receiver    person    @relation("ReceivedMessages", fields: [receiver_id], references: [id])
-  receiver_id Int
+    id                  Int       @id @default(autoincrement())
+    content             String
+    created_at          DateTime  @default(now())
+    receiver            person    @relation("ReceivedMessages", fields: [receiver_id], references: [id])
+    receiver_id         Int
+    read                Boolean   @default(false)
+    deleteFromUser      Boolean   @default(false)
+    deleteFromAdmin     Boolean   @default(false)
 }
 
 model notification {
-  id          Int                   @id @default(autoincrement())
-  content     String
-  created_at  DateTime              @default(now())
-  reads       notificationRead[]
-}
-
-model notificationRead {
-  id              Int           @id @default(autoincrement())
-  personId        Int
-  notificationId  Int
-  read            Boolean
-  person          person        @relation("PersonsNotificationReads", fields: [personId], references: [id])
-  notification    notification  @relation(fields: [notificationId], references: [id])
-
-  @@unique([personId, notificationId]) // ensure each person can only have one read status
+    id                Int            @id @default(autoincrement())
+    content           String
+    created_at        DateTime       @default(now())
+    readBy            Int[]
+    deleteFromAdmin   Boolean        @default(false)
+    deleteFromUser    Boolean        @default(false)
 }
 

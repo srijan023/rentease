@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       }, { status: person.status })
     }
 
-    if (!person.email || !person.id || !person.id) {
+    if (!person.email || !person.id || !person.name) {
       throw {
         message: "Unexpected error"
       }
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       { status: 200 },
     );
 
-    generateJWTToken(person.email, person.id, person.name, response);
+    generateJWTToken(person.email, person.id, person.name, response, "ADMIN");
 
     return response;
 
