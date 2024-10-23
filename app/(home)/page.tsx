@@ -26,7 +26,7 @@ export default function Home() {
           directly by the landlord for a seamless experience.
         </p>
         <Button
-          classes={"bg-secondary-10 text-white mx-auto block my-24"}
+          classes={"text-xl bg-secondary-10 text-white mx-auto block my-24"}
           label="Browse Properties"
         />
         <div className="h-96 relative z-0 rounded-3xl text-white text-center">

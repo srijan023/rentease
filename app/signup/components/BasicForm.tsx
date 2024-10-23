@@ -141,7 +141,7 @@ export default function BasicForm({
             <Button
               label="Next"
               onClick={handleNextPage}
-              classes="bg-black text-white mt-2"
+              classes="text-xl bg-black text-white mt-2"
             />
           </div>
           <hr className="border-black my-8" />

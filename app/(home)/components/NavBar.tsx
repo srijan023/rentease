@@ -37,7 +37,7 @@ export default function NavBar() {
           </ul>
           <li>
             <Button
-              classes="border-black border-solid border-[1px] hover:bg-secondary-10 hover:text-white"
+              classes="text-xl border-black border-solid border-[1px] hover:bg-secondary-10 hover:text-white"
               label="Sign In"
               onClick={() => setShowModal(true)}
             />

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import BasicForm from "./BasicForm";
 import LegalForm from "./LegalForm";
+import ContactForm from "./ContactForm";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { personSchema } from "@validations/zodSchemas/personSchema";
@@ -19,11 +20,10 @@ export default function SignUpForm() {
     register,
     handleSubmit,
     formState: { errors },
-    // watch,
+    watch,
     trigger,
   } = useForm<FormData>({
     resolver: zodResolver(personSchema),
-    mode: "onBlur",
   });
 
   const onSubmit = (data: FormData) => {
@@ -32,12 +32,42 @@ export default function SignUpForm() {
 
   const handleNextPage = async () => {
     const valid = await trigger(getCurrentFields(), { shouldFocus: true });
-    if (valid) setFormPage((prev) => prev + 1);
-    else console.log("Validation failed for current page.");
+    if (valid) {
+      setFormPage((prev) => prev + 1);
+    } else {
+      console.log("Validation failed for current page.");
+      console.log(errors);
+    }
   };
 
   const getCurrentFields = (): (keyof FormData)[] => {
-    if (formPage === 1) return ["name", "email", "password", "contact"];
+    if (formPage === 1) {
+      const fields: (keyof FormData)[] = [
+        "name",
+        "email",
+        "password",
+        "contact",
+      ];
+
+      if (watch("backup_email")) {
+        fields.push("backup_email");
+      }
+      return fields;
+    }
+
+    if (formPage === 2) {
+      const fields: (keyof FormData)[] = [
+        // "ssn",
+        // "no_ssn_reason",
+        "is_US_citizen",
+        // "state_id",
+        // "drivers_license",
+        "is_International_student",
+        // "i_20",
+        // "balance_statement",
+      ];
+      return fields;
+    }
     return [];
   };
 
@@ -52,7 +82,14 @@ export default function SignUpForm() {
             handleNextPage={handleNextPage}
           />
         )}
-        {formPage === 2 && <LegalForm register={register} errors={errors} />}
+        {formPage === 2 && (
+          <LegalForm
+            register={register}
+            errors={errors}
+            handleNextPage={handleNextPage}
+          />
+        )}
+        {formPage === 3 && <ContactForm />}
       </form>
       <SignInModal show={showModal} setShow={setShowModal} />
     </>

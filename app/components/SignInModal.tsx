@@ -154,7 +154,7 @@ export default function SignInModal({ show, setShow }: SignInModalProps) {
               <Button
                 label="Sign In"
                 type="submit"
-                classes="bg-black text-white mx-auto block mt-5 mb-6"
+                classes="text-xl bg-black text-white mx-auto block mt-5 mb-6"
               />
               {pathname !== "/signup" && (
                 <p className="mx-auto text-center text-lg">
