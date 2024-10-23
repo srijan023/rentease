@@ -188,6 +188,7 @@ model message {
     read                Boolean   @default(false)
     deleteFromUser      Boolean   @default(false)
     deleteFromAdmin     Boolean   @default(false)
+    edited              Boolean   @default(false)
 }
 
 model notification {

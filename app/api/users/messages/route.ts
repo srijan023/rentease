@@ -1,5 +1,5 @@
-import { getAllMessage } from "@/services/messagesAndNotifications";
 import { NextRequest, NextResponse } from "next/server";
+import { getAllMessage } from "@/services/messagesAndNotifications";
 
 export async function GET(request: NextRequest) {
   const id = request.headers.get("id")
