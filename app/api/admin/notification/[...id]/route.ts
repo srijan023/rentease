@@ -1,5 +1,5 @@
-import { deleteMessage, getMessage, hideMessageAdmin, updateMessageContent } from "@/services/messagesAndNotifications";
-import { NextRequest, NextResponse } from "next/server";
+import { deleteNotification, getNotification, hideNotificationAdmin } from "@/services/messagesAndNotifications"
+import { NextRequest, NextResponse } from "next/server"
 
 // route for message with an id
 export async function GET(_request: NextRequest, { params }: { params: { id: string[] } }) {
@@ -12,7 +12,7 @@ export async function GET(_request: NextRequest, { params }: { params: { id: str
       }
     }
 
-    const response = await getMessage(messageId)
+    const response = await getNotification(messageId)
     if (!response.success) {
       throw { message: response.error }
     }
@@ -40,7 +40,7 @@ export async function DELETE(_request: NextRequest, { params }: { params: { id: 
       }
     }
 
-    const response = await deleteMessage(messageId)
+    const response = await deleteNotification(messageId)
 
     if (!response.success) {
       throw { message: response.error }
@@ -72,7 +72,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 
     if (reqBody.action == "deleteFromAdmin") {
       // set deleteFromAdmin = true which hides the message from admin
-      const response = await hideMessageAdmin(messageId)
+      const response = await hideNotificationAdmin(messageId)
       if (!response.success) {
         throw {
           message: response.error
@@ -82,20 +82,6 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       return NextResponse.json({
         success: true,
         message: "Deleted from admin"
-      }, { status: 200 })
-
-    } else if (reqBody.action == "updateContent") {
-      // update the content of the message
-      const response = await updateMessageContent(messageId, reqBody.content)
-      if (!response.success) {
-        throw {
-          message: response.error
-        }
-      }
-
-      return NextResponse.json({
-        success: true,
-        message: "Content updated"
       }, { status: 200 })
 
     } else {
@@ -112,4 +98,5 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     }, { status: 500 })
   }
 }
+
 

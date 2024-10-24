@@ -40,6 +40,7 @@ model person {
   visa                      String?
   is_International_student  Boolean?
   i_20                      String?
+  salary_range              String
   balance_statement         String
 
   // Contacts
@@ -197,6 +198,5 @@ model notification {
     created_at        DateTime       @default(now())
     readBy            Int[]
     deleteFromAdmin   Boolean        @default(false)
-    deleteFromUser    Boolean        @default(false)
 }
 

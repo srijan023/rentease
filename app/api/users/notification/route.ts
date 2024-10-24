@@ -1,6 +1,7 @@
 import { getAllNotifications } from "@/services/messagesAndNotifications"
 import { NextResponse } from "next/server"
 
+// TODO: Don't give every notification filter where there is hide from user
 export async function GET() {
   try {
     const response = await getAllNotifications()
@@ -21,3 +22,4 @@ export async function GET() {
     }, { status: 500 })
   }
 }
+
