@@ -14,7 +14,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="text-secondary-10 fixed z-50 left-1/2 top-0 pt-10 pb-4 transform -translate-x-1/2 bg-white w-full">
+      <header className="text-secondary-10 fixed z-50 left-1/2 top-0 pt-10 pb-4 transform -translate-x-1/2 bg-white w-full">
         <Container classes={"flex justify-between items-center list-none"}>
           <Link href={"/"}>
             <RentEase />
@@ -43,7 +43,7 @@ export default function NavBar() {
             />
           </li>
         </Container>
-      </nav>
+      </header>
 
       <SignInModal show={showModal} setShow={setShowModal} />
     </>

@@ -14,7 +14,7 @@ export default function HomeLayout({
   return (
     <div>
       <NavBar />
-      <main> {children} </main>
+      <main className="mt-36"> {children} </main>
     </div>
   );
 }

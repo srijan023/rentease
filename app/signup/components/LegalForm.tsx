@@ -15,29 +15,39 @@ interface LegalFormProps {
   errors: FieldErrors<FormData>;
   // watch: UseFormWatch<FormData>;
   handleNextPage: () => void;
+  handlePrevPage: () => void;
 }
 
 export default function LegalForm({
   register,
   errors,
   handleNextPage,
+  handlePrevPage,
 }: LegalFormProps) {
   const [hasSSN, setHasSSN] = useState(false);
-  const [isInternationalStudent, setIsInternationalStudent] = useState(true);
 
   const { setValue, getValues } = useForm<FormData>();
 
   const [isUsCitizen, setIsUsCitizen] = useState<boolean>(
     getValues("is_US_citizen") || false,
   );
+  const [isInternationalStudent, setIsInternationalStudent] = useState<boolean>(
+    getValues("is_International_student") || true,
+  );
 
   useEffect(() => {
     setValue("is_US_citizen", isUsCitizen);
-  }, [isUsCitizen, setValue]);
+    setValue("is_International_student", isInternationalStudent);
+  }, [setValue, isUsCitizen, isInternationalStudent]);
 
   const handleCitizenshipSelection = (value: boolean) => {
     setIsUsCitizen(value);
     setValue("is_US_citizen", value);
+  };
+
+  const handleInternationalStudentSelection = (value: boolean) => {
+    setIsInternationalStudent(value);
+    setValue("is_International_student", value);
   };
 
   return (
@@ -45,10 +55,11 @@ export default function LegalForm({
       <div className="w-2/3 px-20 min-h-full flex flex-col items-center justify-center">
         <div className="relative w-full my-6">
           <hr className="absolute border-0 h-[1px] bg-black w-full top-1/2 inset-0" />
-          <div className="relative z-10 bg-[var(--background-white)] w-max mx-auto  h-full text-lg border border-black rounded-xl px-3">
+          <div className="relative z-10 bg-white w-max mx-auto  h-full text-lg border border-black rounded-xl px-3">
             Legal and Financial Information{" "}
           </div>
         </div>
+
         <div className="flex gap-8 mb-4">
           <Button
             type="button"
@@ -63,6 +74,7 @@ export default function LegalForm({
             label="I don't have a SSN"
           />
         </div>
+
         {hasSSN && (
           <div className="w-full">
             <label htmlFor="ssn" className="mb-1 ml-2 font-medium">
@@ -74,8 +86,12 @@ export default function LegalForm({
               {...register("ssn")}
               className="w-full  px-4 py-2 border border-gray-300 rounded-full"
             />
+            {errors.ssn && (
+              <p className="text-red-500 ml-2">{errors.ssn.message}</p>
+            )}
           </div>
         )}
+
         {!hasSSN && (
           <div className="w-full">
             <label htmlFor="no_ssn_reason" className="mb-1 ml-2 font-medium">
@@ -85,10 +101,17 @@ export default function LegalForm({
               id="no_ssn_reason"
               {...register("no_ssn_reason")}
               placeholder="Give a valid reasoning"
+              rows={4}
               className="p-2 w-full rounded-xl border border-gray-300"
             ></textarea>
+            {errors.no_ssn_reason && (
+              <p className="text-red-500 ml-2">
+                {errors.no_ssn_reason.message}
+              </p>
+            )}
           </div>
         )}
+
         <div className="flex gap-8 mt-10 mb-4">
           <Button
             type="button"
@@ -103,6 +126,7 @@ export default function LegalForm({
             onClick={() => handleCitizenshipSelection(false)}
           />
         </div>
+
         {isUsCitizen && (
           <div className="flex gap-8 w-full">
             <div className="w-1/2">
@@ -116,7 +140,11 @@ export default function LegalForm({
                 className="w-full border rounded p-2"
                 id="state_id"
               />
+              {errors.state_id && (
+                <p className="text-red-500 ml-2">{errors.state_id.message}</p>
+              )}
             </div>
+
             <div className="w-1/2">
               <label
                 htmlFor="drivers_license"
@@ -131,6 +159,11 @@ export default function LegalForm({
                 {...register("drivers_license")}
                 className="block w-full border rounded p-2"
               />
+              {errors.drivers_license && (
+                <p className="text-red-500 ml-2">
+                  {errors.drivers_license.message}
+                </p>
+              )}
             </div>
           </div>
         )}
@@ -148,7 +181,11 @@ export default function LegalForm({
                 className="w-full border rounded p-2"
                 id="visa"
               />
+              {errors.visa && (
+                <p className="text-red-500 ml-2">{errors.visa.message}</p>
+              )}
             </div>
+
             <div className="w-1/2">
               <label htmlFor="passport" className="mb-1 ml-2 font-medium">
                 Valid Passport&nbsp;
@@ -160,23 +197,28 @@ export default function LegalForm({
                 {...register("passport")}
                 className="block w-full border rounded p-2"
               />
+              {errors.passport && (
+                <p className="text-red-500 ml-2">{errors.passport.message}</p>
+              )}
             </div>
           </div>
         )}
+
         <div className="flex gap-8 mt-10 mb-4">
           <Button
             type="button"
             classes={`${isInternationalStudent ? "bg-customRed-80" : "bg-gray-200"} text-lg`}
-            onClick={() => setIsInternationalStudent(true)}
+            onClick={() => handleInternationalStudentSelection(true)}
             label="I am an International Student"
           />
           <Button
             type="button"
             classes={`${!isInternationalStudent ? "bg-customRed-80" : "bg-gray-200"} text-lg`}
-            onClick={() => setIsInternationalStudent(false)}
+            onClick={() => handleInternationalStudentSelection(false)}
             label="I am not an International Student"
           />
         </div>
+
         {isInternationalStudent && (
           <div className="w-full">
             <label htmlFor="i_20" className="mb-1 ml-2 font-medium">
@@ -189,6 +231,9 @@ export default function LegalForm({
               {...register("i_20")}
               className="w-full px-4 py-2 border border-gray-300 rounded-full"
             />
+            {errors.i_20 && (
+              <p className="text-red-500 ml-2">{errors.i_20.message}</p>
+            )}
           </div>
         )}
         <div className="flex gap-4 w-full mt-10">
@@ -205,6 +250,9 @@ export default function LegalForm({
               <option value="1000-5000">$1000 - $5000</option>
               <option value="5000+">$5000+</option>
             </select>
+            {/* errors.salary_range && (
+              <p className="text-red-500 ml-2">{errors.salary_range.message}</p>
+            ) */}
           </div>
           <div className="w-1/2">
             <label
@@ -220,10 +268,19 @@ export default function LegalForm({
               {...register("balance_statement")}
               id="balance_statement"
             />
+            {errors.balance_statement && (
+              <p className="text-red-500 ml-2">
+                {errors.balance_statement.message}
+              </p>
+            )}
           </div>
         </div>
         <div className="w-full flex justify-around my-10">
-          <Button label="Back" classes="border border-black text-xl" />
+          <Button
+            label="Back"
+            classes="border border-black text-xl"
+            onClick={handlePrevPage}
+          />
           <Button
             label="Next"
             classes="text-xl bg-black text-white"
@@ -231,7 +288,7 @@ export default function LegalForm({
           />
         </div>
       </div>
-      <div className="w-1/3 bg-[var(--custom-red-95)] min-h-full flex items-center justify-center">
+      <div className="w-1/3 bg-customRed-95 min-h-full flex items-center justify-center">
         <div>
           <RentEase classes="mb-12" />
           <Description

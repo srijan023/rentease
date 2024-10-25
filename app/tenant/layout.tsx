@@ -1,4 +1,4 @@
-import NavBar from "../(home)/components/NavBar";
+import NavBar from "@components/NavBar";
 
 export default function TenantLayout({
   children,
@@ -6,7 +6,7 @@ export default function TenantLayout({
   return (
     <div>
       <NavBar />
-      <main className="mt-32">{children}</main>
+      <main className="mt-36">{children}</main>
     </div>
   );
 }
