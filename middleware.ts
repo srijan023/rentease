@@ -25,7 +25,8 @@ export async function middleware(request: NextRequest) {
       return NextResponse.rewrite(new URL('/signup', request.url))
     } else {
       const tokenInfo = isValid.data as tokenData
-      return NextResponse.rewrite(new URL(`/profile/${tokenInfo.id}`, request.url))
+      // return NextResponse.rewrite(new URL(`/profile/${tokenInfo.id}`, request.url))
+      return NextResponse.rewrite(new URL(`/tenant`, request.url))
     }
   }
 

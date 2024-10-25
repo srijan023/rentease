@@ -2,6 +2,7 @@ import { insertMessage, insertNotification } from "@/services/messagesAndNotific
 import { NextRequest, NextResponse } from "next/server";
 import { getAllMessage } from "@/services/messagesAndNotifications";
 
+// route for message without an id
 export async function GET(request: NextRequest) {
   const { userId } = await request.json()
   try {
@@ -28,6 +29,7 @@ export async function POST(request: NextRequest) {
 
   try {
     let response
+    let resMessage
     if (!receiver) {
       // it is a notification
       response = await insertNotification(message)
@@ -36,6 +38,7 @@ export async function POST(request: NextRequest) {
           message: response.error
         }
       }
+      resMessage = "Notificaiton sent successfully"
     } else {
       // it is a message
       response = await insertMessage(message, parseInt(receiver))
@@ -44,11 +47,12 @@ export async function POST(request: NextRequest) {
           message: response.error
         }
       }
+      resMessage = "Message sent successfully"
     }
 
     return NextResponse.json({
       success: true,
-      message: "Inserted message / notification successfully"
+      message: resMessage
     }, { status: 202 })
 
   } catch (err: any) {

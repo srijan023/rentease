@@ -204,3 +204,128 @@ export async function updateMessageContent(messageId: number, content: string) {
     }
   }
 }
+
+export async function getNotification(notId: number) {
+  try {
+    const res = await prisma.notification.findFirst({
+      where: {
+        id: notId
+      }
+    })
+
+    return {
+      success: true,
+      data: res
+    }
+
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message
+    }
+  }
+}
+
+export async function deleteNotification(notId: number) {
+  try {
+    await prisma.notification.delete({
+      where: {
+        id: notId
+      }
+    })
+
+    return {
+      success: true,
+    }
+
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message
+    }
+  }
+}
+
+
+export async function hideNotificationAdmin(notId: number) {
+  try {
+    await prisma.notification.update({
+      where: {
+        id: notId
+      },
+      data: {
+        deleteFromAdmin: true
+      }
+    })
+
+    return {
+      success: true,
+    }
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message
+    }
+  }
+}
+
+// BUG: This would not work as there are multiple user that share notification
+// Check out mark notification read function for better implementation
+export async function hideNotificationUser(notId: number) {
+  try {
+    await prisma.notification.update({
+      where: {
+        id: notId
+      },
+      data: {
+        deleteFromUser: true
+      }
+    })
+
+    return {
+      success: true,
+    }
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message
+    }
+  }
+}
+
+export async function markNotificationRead(notId: number, userId: number) {
+  try {
+    const result = await prisma.$transaction(async (prisma) => {
+      const response = await prisma.notification.findFirst({
+        where: { id: notId }
+      });
+
+      if (!response) {
+        throw {
+          message: "Database error"
+        }
+      }
+
+      await prisma.notification.update({
+        where: {
+          id: notId
+        },
+        data: {
+          readBy: [...response.readBy, userId]
+        }
+      })
+
+      return {
+        success: true,
+        error: null
+      }
+    })
+    return result;
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message
+    }
+  }
+
+}
