@@ -231,6 +231,9 @@ export default function LegalForm({
               {...register("i_20")}
               className="w-full px-4 py-2 border border-gray-300 rounded-full"
             />
+            {errors.i_20 && (
+              <p className="text-red-500 ml-2">{errors.i_20.message}</p>
+            )}
           </div>
         )}
         <div className="flex gap-4 w-full mt-10">
@@ -247,6 +250,9 @@ export default function LegalForm({
               <option value="1000-5000">$1000 - $5000</option>
               <option value="5000+">$5000+</option>
             </select>
+            {/* errors.salary_range && (
+              <p className="text-red-500 ml-2">{errors.salary_range.message}</p>
+            ) */}
           </div>
           <div className="w-1/2">
             <label
@@ -262,6 +268,11 @@ export default function LegalForm({
               {...register("balance_statement")}
               id="balance_statement"
             />
+            {errors.balance_statement && (
+              <p className="text-red-500 ml-2">
+                {errors.balance_statement.message}
+              </p>
+            )}
           </div>
         </div>
         <div className="w-full flex justify-around my-10">
