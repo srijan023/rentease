@@ -2,64 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary-black: #141b2c;
-  --background-white: #fff8f7;
-
-  --black: #000000;
-
-  --primary-10: #001a42;
-  --primary-20: #002e6a;
-  --primary-30: #0f4490;
-  --primary-40: #315ca9;
-  --primary-50: #4d76c4;
-  --primary-60: #6890e0;
-  --primary-70: #83aafd;
-  --primary-80: #aec6ff;
-  --primary-90: #d8e2ff;
-  --primary-95: #edf0ff;
-
-  --secondary-10: #141b2c;
-  --secondary-20: #293042;
-  --secondary-30: #3f4759;
-  --secondary-40: #575e72;
-  --secondary-50: #6f778b;
-  --secondary-60: #8990a5;
-  --secondary-70: #a3abc1;
-  --secondary-80: #bfc6dd;
-  --secondary-90: #dbe2f9;
-  --secondary-95: #edf0ff;
-
-  --tertiory-10: #2a132d;
-  --tertiory-20: #402743;
-  --tertiory-30: #583e5b;
-  --tertiory-40: #715573;
-  --tertiory-50: #8c6d8d;
-  --tertiory-60: #a786a8;
-  --tertiory-70: #c2a0c3;
-  --tertiory-80: #dfbbdf;
-  --tertiory-90: #fcd7fc;
-  --tertiory-95: #ffebfc;
-
-  --custom-red-10: #410002;
-  --custom-red-20: #690005;
-  --custom-red-30: #93000a;
-  --custom-red-40: #ba1a1a;
-  --custom-red-50: #de3730;
-  --custom-red-60: #ff5449;
-  --custom-red-70: #ff897d;
-  --custom-red-80: #ffb4ab;
-  --custom-red-90: #ffdad6;
-  --custom-red-95: #ffefef;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary-black: #141b2c;
-    --background-white: #fff8f7;
-  }
-}
-
 body {
   background: white;
   font-family: Arial, Helvetica, sans-serif;

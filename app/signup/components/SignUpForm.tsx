@@ -40,6 +40,12 @@ export default function SignUpForm() {
     }
   };
 
+  const handlePrevPage = () => {
+    console.log(formPage);
+    setFormPage((prev) => prev - 1);
+    console.log(formPage);
+  };
+
   const getCurrentFields = (): (keyof FormData)[] => {
     if (formPage === 1) {
       const fields: (keyof FormData)[] = [
@@ -87,6 +93,7 @@ export default function SignUpForm() {
             register={register}
             errors={errors}
             handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
           />
         )}
         {formPage === 3 && <ContactForm />}
