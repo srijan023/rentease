@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --primary-black: #141b2c;
   --background-white: #fff8f7;
@@ -69,4 +70,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.capsule-table td {
+  background-color: #edf0ff
 }
