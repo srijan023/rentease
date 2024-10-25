@@ -12,3 +12,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.capsule-table td {
+  background-color: #edf0ff
+}
