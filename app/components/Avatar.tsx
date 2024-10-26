@@ -1,6 +1,24 @@
-export default function Avatar({ image }: { image: string }) {
-  return <div className="px-6 text-white py-4 rounded-full bg-gray-500">
-    {!image && "A"}
-    {image && <img src={image} />}
-  </div>
+import Image, { StaticImageData } from "next/image";
+
+interface AvatarProps {
+  image?: StaticImageData;
+  classes?: string;
+}
+
+export default function Avatar(props: AvatarProps) {
+  return (
+    <div
+      className={`h-14 w-14 relative rounded-full overflow-hidden bg-orange-500 flex justify-center items-center ${props.classes}`}
+    >
+      {props.image && (
+        <Image
+          src={props.image}
+          alt="user avatar"
+          fill
+          className="object-cover object-center"
+        />
+      )}
+      {!props.image && <span className="text-3xl text-white">A</span>}
+    </div>
+  );
 }
