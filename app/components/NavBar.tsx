@@ -1,7 +1,7 @@
 import Container from "@components/Container";
 import RentEase from "@components/RentEase";
+import Avatar from "@components/Avatar";
 import Link from "next/link";
-import Image from "next/image";
 
 import { BsBell } from "react-icons/bs";
 import { RxEnvelopeClosed } from "react-icons/rx";
@@ -10,7 +10,7 @@ import avatar from "@assests/avatar.jpg";
 
 export default function NavBar() {
   return (
-    <header className="text-secondary-10 fixed z-50 left-0 top-0 py-6 bg-white w-full border-b-2 border-secondary-20">
+    <header className="text-white fixed z-50 left-0 top-0 py-6 bg-secondary-10 w-full shadow-[0px_2px_10px_4px_rgba(0,0,0,0.3)]">
       <Container classes={"flex justify-between items-center"}>
         <Link href={"/"}>
           <RentEase />
@@ -24,14 +24,7 @@ export default function NavBar() {
             <RxEnvelopeClosed className="text-4xl" />
             <span className="absolute top-0 -right-1 h-3 w-3 rounded-full bg-customRed-50" />
           </div>
-          <div className="h-14 w-14 relative rounded-full overflow-hidden bg-orange-500">
-            <Image
-              src={avatar}
-              alt="User Avatar"
-              fill
-              className="object-cover object-center"
-            />
-          </div>
+          <Avatar classes="border-2 border-white" image={avatar} />
         </div>
       </Container>
     </header>

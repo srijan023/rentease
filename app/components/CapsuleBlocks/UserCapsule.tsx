@@ -8,28 +8,20 @@ export default function UserCapsule() {
     <CapsuleContainer>
       <td className="rounded-l-3xl">
         <CapsuleItem>
-          <Avatar image="" />
+          <Avatar />
         </CapsuleItem>
       </td>
       <td className="font-semibold">
-        <CapsuleItem>
-          Renn Gill
-        </CapsuleItem>
+        <CapsuleItem>Renn Gill</CapsuleItem>
       </td>
       <td className="text-gray-600">
-        <CapsuleItem>
-          Villa Something
-        </CapsuleItem>
+        <CapsuleItem>Villa Something</CapsuleItem>
       </td>
       <td className="text-gray-600">
-        <CapsuleItem>
-          randomUser@email.com
-        </CapsuleItem>
+        <CapsuleItem>randomUser@email.com</CapsuleItem>
       </td>
       <td className="text-gray-600">
-        <CapsuleItem>
-          9876543210
-        </CapsuleItem>
+        <CapsuleItem>9876543210</CapsuleItem>
       </td>
       <td className="rounded-r-3xl">
         <CapsuleItem>
@@ -37,6 +29,5 @@ export default function UserCapsule() {
         </CapsuleItem>
       </td>
     </CapsuleContainer>
-  )
+  );
 }
-

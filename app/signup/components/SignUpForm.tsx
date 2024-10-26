@@ -27,6 +27,8 @@ export default function SignUpForm() {
     resolver: zodResolver(personSchema),
   });
 
+  console.log(errors);
+
   useEffect(() => {
     const handlePopState = (event: PopStateEvent) => {
       const page = event.state.formPage || 1;
@@ -70,10 +72,10 @@ export default function SignUpForm() {
   const getCurrentFields = (): (keyof FormData)[] => {
     if (formPage === 1) {
       const fields: (keyof FormData)[] = [
-        "name",
-        "email",
-        "password",
-        "contact",
+        // "name",
+        // "email",
+        // "password",
+        // "contact",
       ];
 
       if (watch("backup_email")) {
@@ -117,7 +119,13 @@ export default function SignUpForm() {
             handlePrevPage={handlePrevPage}
           />
         )}
-        {formPage === 3 && <ContactForm />}
+        {formPage === 3 && (
+          <ContactForm
+            register={register}
+            errors={errors}
+            handlePrevPage={handlePrevPage}
+          />
+        )}
       </form>
       <SignInModal show={showModal} setShow={setShowModal} />
     </>
