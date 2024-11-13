@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const auxPersonSchema = z.object({
   name: z.string({
@@ -9,4 +9,5 @@ export const auxPersonSchema = z.object({
   state: z.string({ required_error: "You need to provide a state" }),
   region: z.string({ required_error: "You need to provide a region" }),
   sub_division: z.string().optional(),
-})
+  street: z.string().optional(),
+});

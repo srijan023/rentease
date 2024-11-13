@@ -103,7 +103,7 @@ export default function LegalForm({
               placeholder="Give a valid reasoning"
               rows={4}
               className="p-2 w-full rounded-xl border border-gray-300"
-            ></textarea>
+            />
             {errors.no_ssn_reason && (
               <p className="text-red-500 ml-2">
                 {errors.no_ssn_reason.message}
