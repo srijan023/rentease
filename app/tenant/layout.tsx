@@ -6,7 +6,7 @@ export default function TenantLayout({
   return (
     <div>
       <NavBar />
-      <main className="mt-36">{children}</main>
+      <main className="">{children}</main>{" "}
     </div>
   );
 }

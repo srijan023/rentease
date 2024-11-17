@@ -10,7 +10,7 @@ import avatar from "@assests/avatar.jpg";
 
 export default function NavBar() {
   return (
-    <header className="text-white fixed z-50 left-0 top-0 py-6 bg-secondary-10 w-full shadow-[0px_2px_10px_4px_rgba(0,0,0,0.3)]">
+    <header className="text-primary-10 z-50 left-0 top-0 py-6 bg-background w-full border-b-2 border-secondary-30">
       <Container classes={"flex justify-between items-center"}>
         <Link href={"/"}>
           <RentEase />

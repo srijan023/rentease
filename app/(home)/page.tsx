@@ -10,7 +10,7 @@ import PropertyCard from "@components/PropertyCard";
 export default function Home() {
   return (
     <>
-      <Container classes="mt-48">
+      <Container classes="mt-48 bg-white">
         <h2
           className="text-6xl w-max mx-auto mb-14 text-primary-10"
           style={abril.style}

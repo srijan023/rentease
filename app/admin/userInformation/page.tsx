@@ -1,26 +1,29 @@
 import UserCapsule from "@/app/components/CapsuleBlocks/UserCapsule";
+import { userList } from "./data";
+import HeaderSection from "../components/HeaderSection";
+import Button from "@/app/components/Button";
 
 export default function UserInformation() {
   return (
-    <div>
-      <table className="rounded-md w-3/4 mx-auto outline-0 border-spacing-y-4 border-separate capsule-table">
-        <thead className="text-gray-600">
-          <tr>
-            <th></th>
-            <th>Full Name</th>
-            <th>House</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <UserCapsule />
-          <UserCapsule />
-        </tbody>
-      </table>
-
+    <div className="max-w-[1000px] min-h-[90vh] mx-auto">
+      <div>
+        <HeaderSection title={"Clients"}>
+          <div>
+            <Button classes="bg-primary-10 text-white" label={"Message All"} />
+          </div>
+        </HeaderSection>
+      </div>
+      <div className="grid grid-cols-5 text-center font-semibold text-secondary-40 py-4">
+        <div>Full Name</div>
+        <div>House</div>
+        <div>Email</div>
+        <div>Phone Number</div>
+      </div>
+      <div className="flex flex-col gap-2">
+        {userList.map((user) => {
+          return <UserCapsule key={user.id} user={user} />;
+        })}
+      </div>
     </div>
-  )
+  );
 }
-

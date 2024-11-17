@@ -12,7 +12,7 @@ export default function HomeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div className="">
       <NavBar />
       <main className="mt-36"> {children} </main>
     </div>

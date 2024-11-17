@@ -15,7 +15,9 @@ export default function NavBar() {
   return (
     <>
       <header className="text-secondary-10 fixed z-50 left-1/2 top-0 pt-10 pb-4 transform -translate-x-1/2 bg-white w-full">
-        <Container classes={"flex justify-between items-center list-none"}>
+        <Container
+          classes={"flex justify-between items-center list-none bg-white"}
+        >
           <Link href={"/"}>
             <RentEase />
           </Link>

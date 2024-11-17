@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background: white;
+  background: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -14,5 +14,5 @@ body {
 }
 
 .capsule-table td {
-  background-color: #edf0ff
+  background-color: #edf0ff;
 }

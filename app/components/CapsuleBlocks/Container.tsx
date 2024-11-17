@@ -1,7 +1,11 @@
-export default function CapsuleContainer({ children }: { children: React.ReactNode }) {
+export default function CapsuleContainer({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <tr className="px-5 py-3">
+    <div className="grid items-center text-center grid-cols-5 bg-secondary-95 rounded-2xl">
       {children}
-    </tr>
-  )
+    </div>
+  );
 }

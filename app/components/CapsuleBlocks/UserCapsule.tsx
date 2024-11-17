@@ -3,31 +3,43 @@ import Button from "../Button";
 import CapsuleItem from "./CapsuleItem";
 import CapsuleContainer from "./Container";
 
-export default function UserCapsule() {
+type UserInformationType = {
+  name: string;
+  id: string;
+  email: string;
+  phone: string;
+};
+export default function UserCapsule({ user }: { user: UserInformationType }) {
   return (
     <CapsuleContainer>
-      <td className="rounded-l-3xl">
+      <div className="rounded-l-3xl flex items-center">
         <CapsuleItem>
           <Avatar />
         </CapsuleItem>
-      </td>
-      <td className="font-semibold">
-        <CapsuleItem>Renn Gill</CapsuleItem>
-      </td>
-      <td className="text-gray-600">
-        <CapsuleItem>Villa Something</CapsuleItem>
-      </td>
-      <td className="text-gray-600">
-        <CapsuleItem>randomUser@email.com</CapsuleItem>
-      </td>
-      <td className="text-gray-600">
-        <CapsuleItem>9876543210</CapsuleItem>
-      </td>
-      <td className="rounded-r-3xl">
+        <div className="font-semibold">
+          <CapsuleItem>{user.name}</CapsuleItem>
+        </div>
+      </div>
+      <div className="text-gray-600">
+        <CapsuleItem>{user.id}</CapsuleItem>
+      </div>
+
+      <div className="text-gray-600">
+        <CapsuleItem>{user.email}</CapsuleItem>
+      </div>
+
+      <div className="text-gray-600">
+        <CapsuleItem>{user.phone}</CapsuleItem>
+      </div>
+
+      <div className="rounded-r-3xl">
         <CapsuleItem>
-          <Button classes="rounded-2xl border border-black" label="Message" />
+          <Button
+            classes="rounded-2xl text-primary-10 border border-black"
+            label="Message"
+          />
         </CapsuleItem>
-      </td>
+      </div>
     </CapsuleContainer>
   );
 }

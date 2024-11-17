@@ -7,36 +7,34 @@ import CapsuleContainer from "./Container";
 export default function MaintenanceCapsule() {
   return (
     <CapsuleContainer>
-      <td className="rounded-l-3xl">
-        <CapsuleItem>
-          <Avatar image="" />
-        </CapsuleItem>
-      </td>
-      <td>
-        <CapsuleItem>
-          <CapsuleUserDetails userName="Ren Gill" />
-        </CapsuleItem>
-      </td>
-      <td className="text-gray-600">
-        <CapsuleItem>
-          2024 August 12
-        </CapsuleItem>
-      </td>
-      <td className="text-gray-600">
-        <CapsuleItem>
-          Leaking Faucet problem
-        </CapsuleItem>
-      </td>
-      <td>
+      <div className="flex gap-3">
+        <div className="rounded-l-3xl">
+          <CapsuleItem>
+            <Avatar />
+          </CapsuleItem>
+        </div>
+        <div>
+          <CapsuleItem>
+            <CapsuleUserDetails userName="Ren Gill" />
+          </CapsuleItem>
+        </div>
+      </div>
+      <div className="text-gray-600">
+        <CapsuleItem>2024 August 12</CapsuleItem>
+      </div>
+      <div className="text-gray-600">
+        <CapsuleItem>Leaking Faucet problem</CapsuleItem>
+      </div>
+      <div>
         <CapsuleItem>
           <Tag title={"On Progress"} type="normal" />
         </CapsuleItem>
-      </td>
-      <td className="rounded-r-3xl">
+      </div>
+      <div className="rounded-r-3xl">
         <CapsuleItem>
           <Tag title={"Urgent"} type="danger" />
         </CapsuleItem>
-      </td>
+      </div>
     </CapsuleContainer>
-  )
+  );
 }

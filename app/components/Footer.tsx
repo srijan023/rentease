@@ -1,15 +1,13 @@
 import Link from "next/link";
-import Container from "@components/Container";
 import { FaRegCopyright } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
 import contactData from "@data/contact";
 import { abril, poppins_300 } from "@fonts/font";
 
-
 export default function Footer() {
   return (
     <div className="h-max bg-secondary-10 text-white">
-      <Container>
+      <div className="w-9/12 mx-auto">
         <h2
           className="text-5xl max-w-2xl mx-auto pt-14 text-center"
           style={abril.style}
@@ -42,7 +40,7 @@ export default function Footer() {
           <span>Made by Srijan Gyawali & Abhinaya Aryal</span>
           <FaCode />
         </div>
-      </Container>
+      </div>
     </div>
   );
 }
