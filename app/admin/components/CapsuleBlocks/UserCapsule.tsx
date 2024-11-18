@@ -12,7 +12,7 @@ type UserInformationType = {
 export default function UserCapsule({ user }: { user: UserInformationType }) {
   return (
     <CapsuleContainer>
-      <div className="rounded-l-3xl flex items-center">
+      <div className="col-span-2 justify-center rounded-l-3xl flex items-center">
         <CapsuleItem>
           <Avatar />
         </CapsuleItem>

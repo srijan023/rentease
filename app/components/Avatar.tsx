@@ -8,7 +8,7 @@ interface AvatarProps {
 export default function Avatar(props: AvatarProps) {
   return (
     <div
-      className={`h-14 w-14 relative rounded-full overflow-hidden bg-orange-500 flex justify-center items-center ${props.classes}`}
+      className={`h-12 w-12 relative rounded-full overflow-hidden bg-secondary-50 flex justify-center items-center ${props.classes}`}
     >
       {props.image && (
         <Image

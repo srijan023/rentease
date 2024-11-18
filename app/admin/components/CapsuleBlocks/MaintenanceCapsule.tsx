@@ -7,7 +7,7 @@ import Tag from "@/app/components/Tag";
 export default function MaintenanceCapsule() {
   return (
     <CapsuleContainer>
-      <div className="flex gap-3">
+      <div className="flex gap-3 col-span-2 justify-center">
         <div className="rounded-l-3xl">
           <CapsuleItem>
             <Avatar />

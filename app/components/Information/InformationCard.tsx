@@ -12,7 +12,7 @@ interface InformationCardProps {
 export default function InformationCard(props: InformationCardProps) {
   return (
     <div
-      className={`h-full rounded-3xl border-black border-solid border overflow-hidden flex flex-col justify-between items-stretch`}
+      className={`h-full rounded-3xl bg-white border-black border-solid border overflow-hidden flex flex-col justify-between items-stretch`}
     >
       <InformationHeader title={props.title} icon={props.icon} />
       <div className="flex flex-col gap-0.5 flex-1">{props.children}</div>

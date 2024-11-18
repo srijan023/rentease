@@ -5,7 +5,7 @@ import UserCapsule from "../components/CapsuleBlocks/UserCapsule";
 
 export default function UserInformation() {
   return (
-    <div className="max-w-[1000px] min-h-[90vh] mx-auto">
+    <div className=" mx-auto">
       <div>
         <HeaderSection title={"Clients"}>
           <div>
@@ -13,8 +13,8 @@ export default function UserInformation() {
           </div>
         </HeaderSection>
       </div>
-      <div className="grid grid-cols-5 text-center font-semibold text-secondary-40 py-4">
-        <div>Full Name</div>
+      <div className="grid grid-cols-6 text-center font-semibold text-secondary-40 py-4">
+        <div className="col-span-2">Full Name</div>
         <div>House</div>
         <div>Email</div>
         <div>Phone Number</div>
