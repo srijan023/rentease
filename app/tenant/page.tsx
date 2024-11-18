@@ -19,7 +19,7 @@ export default function TenantDashboard() {
           Hello, Adam
         </h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-x-5 gap-y-3">
-          <div className="col-start-1 row-span-2 bg-orange-500">
+          <div className="col-start-1 row-span-2">
             <InformationCard
               icon={BsTools}
               title="Maintenance Requests"

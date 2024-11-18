@@ -4,7 +4,7 @@ export default function TenantLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div>
+    <div className="w-full bg-background">
       <NavBar />
       <main className="">{children}</main>{" "}
     </div>

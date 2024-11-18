@@ -69,7 +69,7 @@ const config: Config = {
           90: "#E1E2EC",
           95: "#F9F9FF",
         },
-        background: "#ffffff",
+        background: "#FFF8F7",
         foreground: "var(--foreground)",
       },
     },

@@ -1,7 +1,7 @@
-import Avatar from "../Avatar";
-import Button from "../Button";
+import Avatar from "@/app/components/Avatar";
 import CapsuleItem from "./CapsuleItem";
 import CapsuleContainer from "./Container";
+import Button from "@/app/components/Button";
 
 type UserInformationType = {
   name: string;

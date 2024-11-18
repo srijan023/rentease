@@ -1,7 +1,7 @@
-import UserCapsule from "@/app/components/CapsuleBlocks/UserCapsule";
 import { userList } from "./data";
 import HeaderSection from "../components/HeaderSection";
 import Button from "@/app/components/Button";
+import UserCapsule from "../components/CapsuleBlocks/UserCapsule";
 
 export default function UserInformation() {
   return (

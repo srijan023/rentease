@@ -3,7 +3,7 @@ import { RxDashboard } from "react-icons/rx";
 import { BsTools } from "react-icons/bs";
 import { LuUsers2 } from "react-icons/lu";
 import { LuHome } from "react-icons/lu";
-import { AiOutlineTransaction } from "react-icons/ai";
+import { RiExchangeDollarFill } from "react-icons/ri";
 
 export default function NavigationPanel() {
   return (
@@ -22,7 +22,7 @@ export default function NavigationPanel() {
           <BsTools />
         </NavigationItem>
         <NavigationItem label="Transactions" link="#">
-          <AiOutlineTransaction />
+          <RiExchangeDollarFill />
         </NavigationItem>
       </div>
     </div>

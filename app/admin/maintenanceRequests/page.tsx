@@ -1,4 +1,4 @@
-import MaintenanceCapsule from "@/app/components/CapsuleBlocks/MaintenanceCapsule";
+import MaintenanceCapsule from "../components/CapsuleBlocks/MaintenanceCapsule";
 import HeaderSection from "../components/HeaderSection";
 
 export default function MaintenanceRequests() {

@@ -1,8 +1,8 @@
-import Avatar from "../Avatar";
-import Tag from "../Tag";
+import Avatar from "@/app/components/Avatar";
 import CapsuleItem from "./CapsuleItem";
 import CapsuleUserDetails from "./CapsuleUserDetails";
 import CapsuleContainer from "./Container";
+import Tag from "@/app/components/Tag";
 
 export default function MaintenanceCapsule() {
   return (

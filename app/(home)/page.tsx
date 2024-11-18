@@ -1,16 +1,16 @@
 import { poppins_700, abril } from "@fonts/font";
 import Button from "@components/Button";
-import { FeatureCard } from "@components/FeatureCard";
-import Container from "@components/Container";
+import { FeatureCard } from "@/app/(home)/components/FeatureCard";
 import featureData from "@data/feature";
 import Image from "next/image";
 import heroImage from "@assests/hero.jpg";
 import PropertyCard from "@components/PropertyCard";
+import UnprotectedContainer from "./components/UnprotectedContainer";
 
 export default function Home() {
   return (
     <>
-      <Container classes="mt-48 bg-white">
+      <UnprotectedContainer classes="mt-48 bg-white">
         <h2
           className="text-6xl w-max mx-auto mb-14 text-primary-10"
           style={abril.style}
@@ -57,7 +57,7 @@ export default function Home() {
         <div className="mb-20">
           <PropertyCard />
         </div>
-      </Container>
+      </UnprotectedContainer>
     </>
   );
 }
