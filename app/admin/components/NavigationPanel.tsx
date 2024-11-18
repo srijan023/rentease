@@ -9,7 +9,7 @@ export default function NavigationPanel() {
   return (
     <div className="px-6 border-r-2 border-secondary-30">
       <div className="flex py-5 flex-col gap-2 h-full">
-        <NavigationItem label="Dashboard" link="/admin/dashboard">
+        <NavigationItem label="Dashboard" link="/admin">
           <RxDashboard />
         </NavigationItem>
         <NavigationItem label="Clients" link="/admin/userInformation">
