@@ -48,6 +48,7 @@ export const personSchema = z
     visa: z.string().optional(),
     is_International_student: z.boolean(),
     i_20: z.string().optional(),
+    salary_range: z.string({ required_error: "Provide a valid income range" }),
     balance_statement: z.string({
       required_error: "Balance statement is required",
     }),
