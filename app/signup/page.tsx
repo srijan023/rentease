@@ -95,6 +95,7 @@ export default function Signup() {
   {
     // submit handler
   }
+  console.log(errors);
   const handleSignup: SubmitHandler<FormData> = (data) => {
     console.log(data);
     reset();

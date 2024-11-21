@@ -2,9 +2,6 @@ import Description from "@/app/components/Description";
 import RentEase from "@/app/components/RentEase";
 import Image from "next/image";
 import signup3 from "@assests/signup3.svg";
-import LabelledInput from "@/app/components/FormComponents/LabelledInput";
-import InputFieldWrapper from "./InputFieldWrapper";
-import DropDownMenu from "@/app/components/FormComponents/DropDownMenu";
 import ButtonWrappers from "./ButtonsWrapper";
 import LabelledTextArea from "@/app/components/FormComponents/LabelledTextArea";
 import Button from "@/app/components/Button";
@@ -17,6 +14,7 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { useState } from "react";
+import AuxContactForm from "./AuxContactForm";
 
 type FormData = z.infer<typeof personSchema>;
 
@@ -46,76 +44,13 @@ export default function ContactInfoForm({
               Contacts Information
             </div>
           </div>
-          <InputFieldWrapper>
-            <div>
-              <LabelledInput
-                {...register("emergency_contact.name")}
-                label="Name"
-                id={"contact_name"}
-                placeholder={"Emergency Contact's Name"}
-              />
-            </div>
-            <div>
-              <LabelledInput
-                {...register("emergency_contact.email")}
-                label="Email"
-                id={"contact_email"}
-                placeholder={"Emergency Contact's Email"}
-                type={"email"}
-              />
-            </div>
-          </InputFieldWrapper>
-          <InputFieldWrapper>
-            <div>
-              <LabelledInput
-                {...register("emergency_contact.contact")}
-                label="Phone"
-                id={"contact_contact"}
-                placeholder={"Emergency Contact's Phone No."}
-                error={errors?.emergency_contact?.contact?.message}
-              />
-            </div>
-            <div>
-              <DropDownMenu
-                watch={watch}
-                setValue={setValue}
-                name={"emergency_contact.state"}
-                options={["State1", "State2"]}
-                label={"State"}
-                error={errors?.emergency_contact?.state?.message}
-              />
-            </div>
-          </InputFieldWrapper>
-          <InputFieldWrapper>
-            <div>
-              <DropDownMenu
-                watch={watch}
-                setValue={setValue}
-                name={"emergency_contact.region"}
-                options={["Region1", "Region2"]}
-                label={"Region"}
-                error={errors?.emergency_contact?.region?.message}
-              />
-            </div>
-            <div>
-              <LabelledInput
-                {...register("emergency_contact.sub_division")}
-                label="Sub division"
-                id={"contact_subdivision"}
-                placeholder={"Sub-division name"}
-                error={errors?.emergency_contact?.sub_division?.message}
-              />
-            </div>
-          </InputFieldWrapper>
-          <InputFieldWrapper>
-            <LabelledInput
-              {...register("emergency_contact.street")}
-              label="Street"
-              id={"contact_street"}
-              placeholder="Address Street"
-              error={errors?.emergency_contact?.street?.message}
-            />
-          </InputFieldWrapper>
+          <AuxContactForm
+            name={"emergency_contact"}
+            errors={errors}
+            setValue={setValue}
+            watch={watch}
+            register={register}
+          />
           <div>
             <ButtonWrappers>
               <Button
@@ -140,78 +75,13 @@ export default function ContactInfoForm({
               </div>
             )}
             {prevAddress && (
-              <>
-                <InputFieldWrapper>
-                  <div>
-                    <LabelledInput
-                      {...register("prev_landlord.name")}
-                      label="Name"
-                      id={"landlord_name"}
-                      placeholder={"Previous Landlord's Name"}
-                    />
-                  </div>
-                  <div>
-                    <LabelledInput
-                      {...register("prev_landlord.email")}
-                      label="Email"
-                      id={"landlord_email"}
-                      placeholder={"Previous Landlord's Email"}
-                      type={"email"}
-                    />
-                  </div>
-                </InputFieldWrapper>
-                <InputFieldWrapper>
-                  <div>
-                    <LabelledInput
-                      {...register("prev_landlord.contact")}
-                      label="Phone"
-                      id={"landlord_contact"}
-                      placeholder={"Previous Landlord's Phone No."}
-                      error={errors?.emergency_contact?.contact?.message}
-                    />
-                  </div>
-                  <div>
-                    <DropDownMenu
-                      watch={watch}
-                      setValue={setValue}
-                      name={"prev_landlord.state"}
-                      options={["State1", "State2"]}
-                      label={"State"}
-                      error={errors?.emergency_contact?.state?.message}
-                    />
-                  </div>
-                </InputFieldWrapper>
-                <InputFieldWrapper>
-                  <div>
-                    <DropDownMenu
-                      watch={watch}
-                      setValue={setValue}
-                      name={"prev_landlord.region"}
-                      options={["Region1", "Region2"]}
-                      label={"Region"}
-                      error={errors?.emergency_contact?.region?.message}
-                    />
-                  </div>
-                  <div>
-                    <LabelledInput
-                      {...register("prev_landlord.sub_division")}
-                      label="Sub division"
-                      id={"landlord_subdivision"}
-                      placeholder={"Sub-division name"}
-                      error={errors?.emergency_contact?.sub_division?.message}
-                    />
-                  </div>
-                </InputFieldWrapper>
-                <InputFieldWrapper>
-                  <LabelledInput
-                    {...register("prev_landlord.street")}
-                    label="Street"
-                    id={"landlord_street"}
-                    placeholder="Address Street"
-                    error={errors?.emergency_contact?.street?.message}
-                  />
-                </InputFieldWrapper>
-              </>
+              <AuxContactForm
+                name={"prev_landlord"}
+                watch={watch}
+                setValue={setValue}
+                register={register}
+                errors={errors}
+              />
             )}
           </div>
 
