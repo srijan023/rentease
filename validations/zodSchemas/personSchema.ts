@@ -97,7 +97,7 @@ export const personSchema = z
   )
   .refine(
     (data) => {
-      if (!data.prev_landlord) {
+      if (!data.prev_landlord?.name) {
         return data.no_residence_detail;
       }
       return true;
@@ -106,5 +106,18 @@ export const personSchema = z
       path: ["no_residence_detail"],
       message:
         "If landlord details are not provided, a valid reason for not having a previous address must be provided",
+    },
+  )
+  .refine(
+    (data) => {
+      if (data.prev_landlord && data.prev_landlord.name) {
+        return true; // prev_landlord fields are valid
+      }
+      return data.no_residence_detail?.trim();
+    },
+    {
+      path: ["prev_landlord", "no_residence_detail"],
+      message:
+        "Provide either previous landlord details or a reason for not having a previous address.",
     },
   );

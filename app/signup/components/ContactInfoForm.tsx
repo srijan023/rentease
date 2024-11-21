@@ -13,7 +13,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuxContactForm from "./AuxContactForm";
 
 type FormData = z.infer<typeof personSchema>;
@@ -33,6 +33,20 @@ export default function ContactInfoForm({
   watch,
 }: ContactFormProps) {
   const [prevAddress, setPrevAddress] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!prevAddress) {
+      setValue("prev_landlord", {
+        name: "",
+        email: undefined,
+        contact: "",
+        state: "",
+        region: "",
+        sub_division: "",
+        street: "",
+      });
+    }
+  }, [setValue, prevAddress]);
 
   return (
     <div>
@@ -61,7 +75,9 @@ export default function ContactInfoForm({
               <Button
                 label={"I don't have any"}
                 classes={`${!prevAddress ? "bg-customRed-80" : ""} text-sm`}
-                onClick={() => setPrevAddress(false)}
+                onClick={() => {
+                  setPrevAddress(false);
+                }}
               />
             </ButtonWrappers>
             {!prevAddress && (
