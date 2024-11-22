@@ -1,5 +1,4 @@
 import { IconType } from "react-icons";
-import { poppins_700 } from "@fonts/font";
 
 export default function InformationHeader(props: {
   title: string;
@@ -11,9 +10,7 @@ export default function InformationHeader(props: {
         <div className="p-3 w-max bg-secondary-10 rounded-full">
           <props.icon className="text-2xl text-white" />
         </div>
-        <div className={`text-center text-xl`} style={poppins_700.style}>
-          {props.title}
-        </div>
+        <div className={`text-center text-xl font-body`}>{props.title}</div>
       </div>
     </>
   );

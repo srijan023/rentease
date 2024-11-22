@@ -2,16 +2,12 @@ import Link from "next/link";
 import { FaRegCopyright } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
 import contactData from "@data/contact";
-import { abril, poppins_300 } from "@fonts/font";
 
 export default function Footer() {
   return (
     <div className="h-max bg-secondary-10 text-white">
       <div className="w-9/12 mx-auto">
-        <h2
-          className="text-5xl max-w-2xl mx-auto pt-14 text-center"
-          style={abril.style}
-        >
+        <h2 className=" font-header text-5xl max-w-2xl mx-auto pt-14 text-center">
           Get in touch with me for more information
         </h2>
         <p className="mx-auto block w-max mt-12">
@@ -32,10 +28,7 @@ export default function Footer() {
             );
           })}
         </div>
-        <div
-          className="pb-8 flex items-center justify-center gap-2 text-xs tracking-wider"
-          style={poppins_300.style}
-        >
+        <div className="font-body pb-8 flex items-center justify-center gap-2 text-xs tracking-wider">
           <FaRegCopyright />
           <span>Made by Srijan Gyawali & Abhinaya Aryal</span>
           <FaCode />

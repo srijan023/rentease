@@ -1,7 +1,6 @@
 import Container from "../components/Container";
 import InformationCard from "../components/Information/InformationCard";
 import TaggedContents from "../components/Information/TaggedContents";
-import { abril } from "../fonts/font";
 import { GoBell } from "react-icons/go";
 import { LiaFileContractSolid } from "react-icons/lia";
 import { FaPlus } from "react-icons/fa6";
@@ -15,9 +14,7 @@ export default function TenantDashboard() {
   return (
     <Container>
       <div className="flex flex-col gap-16">
-        <h2 className="text-3xl" style={abril.style}>
-          Hello, Adam
-        </h2>
+        <h2 className="text-3xl font-header">Hello, Adam</h2>
         <div className="grid grid-cols-3 grid-rows-2 gap-x-5 gap-y-3">
           <div className="col-start-1 row-span-2">
             <InformationCard
@@ -147,7 +144,7 @@ export default function TenantDashboard() {
         </div>
 
         <div>
-          <h2 className="text-4xl text-secondary-10" style={abril.style}>
+          <h2 className="text-4xl text-secondary-10 font-header">
             You may also like
           </h2>
         </div>

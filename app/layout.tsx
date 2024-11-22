@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@components/Footer";
-import { poppins_400 } from "@fonts/font";
+import { abrilFatface, poppins } from "./fonts/font";
 
 export const metadata: Metadata = {
   title: "Rent Ease",
@@ -15,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased" style={poppins_400.style}>
+      <body
+        className={`antialiased ${abrilFatface.variable} ${poppins.variable} font-sans vsc-initialized `}
+      >
         {children}
         <Footer />
       </body>

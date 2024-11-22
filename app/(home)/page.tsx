@@ -1,4 +1,3 @@
-import { poppins_700, abril } from "@fonts/font";
 import Button from "@components/Button";
 import { FeatureCard } from "@/app/(home)/components/FeatureCard";
 import featureData from "@data/feature";
@@ -11,16 +10,10 @@ export default function Home() {
   return (
     <>
       <UnprotectedContainer classes="mt-48 bg-white">
-        <h2
-          className="text-6xl w-max mx-auto mb-14 text-primary-10"
-          style={abril.style}
-        >
+        <h2 className="text-6xl font-header w-max mx-auto mb-14 text-primary-10">
           Browse, Apply, and Move In
         </h2>
-        <p
-          className="max-w-2xl mx-auto text-center text-2xl text-neutral-30 tracking-wide "
-          style={poppins_700.style}
-        >
+        <p className="max-w-2xl font-body mx-auto text-center text-2xl text-neutral-30 tracking-wide ">
           A personalized property rental service where clients can easily browse
           listings, view property details, and apply to book online, all managed
           directly by the landlord for a seamless experience.
@@ -51,7 +44,7 @@ export default function Home() {
             );
           })}
         </div>
-        <h2 className="text-5xl my-20 text-primary-10" style={abril.style}>
+        <h2 className="text-5xl my-20 text-primary-10 font-header">
           What are you looking for?
         </h2>
         <div className="mb-20">

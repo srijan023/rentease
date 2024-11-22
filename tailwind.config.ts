@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        header: ["var(--font-abrilFatface)", "sans-serif"], // Fallback font if custom font fails to load
+        body: ["var(--font-poppins)", "sans-serif"],
+      },
+
       colors: {
         primary: {
           10: "#001A42",

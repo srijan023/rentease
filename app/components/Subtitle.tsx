@@ -1,5 +1,3 @@
-import { abril } from "@fonts/font";
-
 export default function Subtitle({
   text,
   classes = "",
@@ -8,10 +6,7 @@ export default function Subtitle({
   classes?: string;
 }) {
   return (
-    <h2
-      className={`font-bold text-5xl text-center ${classes}`}
-      style={abril.style}
-    >
+    <h2 className={`font-header font-bold text-5xl text-center ${classes}`}>
       {text}
     </h2>
   );

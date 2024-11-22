@@ -1,4 +1,3 @@
-import { abril } from "@/app/fonts/font";
 import { IoFilterSharp } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 export default function HeaderSection({
@@ -10,9 +9,7 @@ export default function HeaderSection({
 }) {
   return (
     <div className="my-10 flex justify-between items-center">
-      <h1 className="text-3xl" style={abril.style}>
-        {title}
-      </h1>
+      <h1 className="text-3xl font-header">{title}</h1>
       <div className="px-2 rounded-full text-xl py-2 border border-primary-10 flex items-center">
         <p className="text-2xl">
           <IoSearch />
