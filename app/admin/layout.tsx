@@ -7,7 +7,7 @@ export default function adminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-background">
+    <div className="font-body bg-background">
       <NavBar />
       <div className="flex">
         <NavigationPanel />

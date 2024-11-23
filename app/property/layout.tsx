@@ -8,7 +8,7 @@ export default function PropertyLayout({
   return (
     <div>
       <NavBar />
-      <main className="max-w-[1200px] mx-auto">{children}</main>
+      <main className="font-body max-w-[1200px] mx-auto">{children}</main>
     </div>
   );
 }

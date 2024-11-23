@@ -104,7 +104,7 @@ export default function Signup() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <section>
+    <section className="font-body">
       <form onSubmit={handleSubmit(handleSignup)}>
         {currentStep === 0 && (
           <BasicInfoForm

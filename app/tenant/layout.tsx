@@ -6,7 +6,7 @@ export default function TenantLayout({
   return (
     <div className="w-full bg-background">
       <NavBar />
-      <main className="">{children}</main>{" "}
+      <main className="font-body">{children}</main>{" "}
     </div>
   );
 }
