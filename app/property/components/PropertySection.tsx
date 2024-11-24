@@ -1,4 +1,4 @@
-import ListItem from "./ListItem";
+import PropertyDescriptionItem from "./ListItem";
 import PropertyDetails from "./PropertyDetails";
 import PropertyDetailsContainer from "./PropertyDetailsContainer";
 import SectionHeader from "./SectionHeader";
@@ -10,21 +10,36 @@ export default function PropertySection() {
       <PropertyDetailsContainer>
         <div>
           <PropertyDetails title="Parking">
-            <ListItem value="No Garage, None">Parking features:</ListItem>
+            <PropertyDescriptionItem value="No Garage, None">
+              Parking features:
+            </PropertyDescriptionItem>
           </PropertyDetails>
           <PropertyDetails title="Property">
-            <ListItem value="2">Stories:</ListItem>
-            <ListItem value="Porch"> Patio &amp; Porch Details:</ListItem>
+            <PropertyDescriptionItem value="2">
+              Stories:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="Porch">
+              {" "}
+              Patio &amp; Porch Details:
+            </PropertyDescriptionItem>
           </PropertyDetails>
         </div>
         <div>
           <PropertyDetails title="Lot">
-            <ListItem value="7,492 sq.ft.">Lot Size:</ListItem>
-            <ListItem value="2,104 sq.ft.">Structure Area:</ListItem>
+            <PropertyDescriptionItem value="7,492 sq.ft.">
+              Lot Size:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="2,104 sq.ft.">
+              Structure Area:
+            </PropertyDescriptionItem>
           </PropertyDetails>
           <PropertyDetails title="Other Property Information">
-            <ListItem value="1234142.00">Parcel number:</ListItem>
-            <ListItem value="Yes">Attached to another structure:</ListItem>
+            <PropertyDescriptionItem value="1234142.00">
+              Parcel number:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="Yes">
+              Attached to another structure:
+            </PropertyDescriptionItem>
           </PropertyDetails>
         </div>
       </PropertyDetailsContainer>

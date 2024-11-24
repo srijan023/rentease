@@ -1,4 +1,4 @@
-import ListItem from "./ListItem";
+import PropertyDescriptionItem from "./ListItem";
 import PropertyDetails from "./PropertyDetails";
 import PropertyDetailsContainer from "./PropertyDetailsContainer";
 import SectionHeader from "./SectionHeader";
@@ -10,23 +10,33 @@ export default function ConstructionSection() {
       <PropertyDetailsContainer>
         <div>
           <PropertyDetails title="Type and Style">
-            <ListItem value="Single Family">Home Type:</ListItem>
-            <ListItem value="Conventional">Architecture Style:</ListItem>
+            <PropertyDescriptionItem value="Single Family">
+              Home Type:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="Conventional">
+              Architecture Style:
+            </PropertyDescriptionItem>
           </PropertyDetails>
           <PropertyDetails title="Condition">
-            <ListItem value="1952">Year Built:</ListItem>
+            <PropertyDescriptionItem value="1952">
+              Year Built:
+            </PropertyDescriptionItem>
           </PropertyDetails>
         </div>
         <div>
           <PropertyDetails title="Material Information">
-            <ListItem value="Aluminium Sliding">
+            <PropertyDescriptionItem value="Aluminium Sliding">
               Construction Material:
-            </ListItem>
+            </PropertyDescriptionItem>
 
-            <ListItem value="Asphalt, Fiberglass">Roof:</ListItem>
+            <PropertyDescriptionItem value="Asphalt, Fiberglass">
+              Roof:
+            </PropertyDescriptionItem>
           </PropertyDetails>
           <PropertyDetails title="Other Construction">
-            <ListItem value="Yes">Warranty Included:</ListItem>
+            <PropertyDescriptionItem value="Yes">
+              Warranty Included:
+            </PropertyDescriptionItem>
           </PropertyDetails>
         </div>
       </PropertyDetailsContainer>

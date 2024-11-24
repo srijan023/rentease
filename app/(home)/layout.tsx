@@ -14,7 +14,10 @@ export default function HomeLayout({
   return (
     <div className="">
       <NavBar />
-      <main className="mt-36"> {children} </main>
+      <main className="mt-36 max-w-[1200px] mx-auto font-body">
+        {" "}
+        {children}{" "}
+      </main>
     </div>
   );
 }

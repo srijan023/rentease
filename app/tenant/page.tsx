@@ -59,7 +59,7 @@ export default function TenantDashboard() {
                   <div className="text-gray-500 text-sm">2024 August 23</div>
                 </div>
                 <div className="flex justify-between mx-4">
-                  <div className="flex items-center justify-between w-[39%]">
+                  <div className="flex items-center gap-3 w-1/2">
                     <span className="text-secondary-10 font-extrabold text-2xl">
                       3
                     </span>{" "}

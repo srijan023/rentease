@@ -1,4 +1,4 @@
-import ListItem from "./ListItem";
+import PropertyDescriptionItem from "./ListItem";
 import PropertyDetails from "./PropertyDetails";
 import PropertyDetailsContainer from "./PropertyDetailsContainer";
 import SectionHeader from "./SectionHeader";
@@ -10,14 +10,22 @@ export default function UtilitiesCommunitySection() {
       <PropertyDetailsContainer>
         <div>
           <PropertyDetails title="Utility">
-            <ListItem value="Public">Water Information:</ListItem>
-            <ListItem value="Public Sewer">Sewer Information:</ListItem>
+            <PropertyDescriptionItem value="Public">
+              Water Information:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="Public Sewer">
+              Sewer Information:
+            </PropertyDescriptionItem>
           </PropertyDetails>
         </div>
         <div>
           <PropertyDetails title="Location">
-            <ListItem value="Youngstown">Region:</ListItem>
-            <ListItem value="City/Youngstown">Subdivision:</ListItem>
+            <PropertyDescriptionItem value="Youngstown">
+              Region:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="City/Youngstown">
+              Subdivision:
+            </PropertyDescriptionItem>
           </PropertyDetails>
         </div>
       </PropertyDetailsContainer>

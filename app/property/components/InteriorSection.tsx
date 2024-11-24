@@ -1,4 +1,4 @@
-import ListItem from "./ListItem";
+import PropertyDescriptionItem from "./ListItem";
 import PropertyDetails from "./PropertyDetails";
 import PropertyDetailsContainer from "./PropertyDetailsContainer";
 import SectionHeader from "./SectionHeader";
@@ -10,18 +10,31 @@ export default function InteriorSection() {
       <PropertyDetailsContainer>
         <div>
           <PropertyDetails title="Bedroom and Bathrooms">
-            <ListItem value="2">Bedrooms:</ListItem>
-            <ListItem value="2">Bathrooms:</ListItem>
+            <PropertyDescriptionItem value="2">
+              Bedrooms:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="2">
+              Bathrooms:
+            </PropertyDescriptionItem>
           </PropertyDetails>
           <PropertyDetails title="Basement">
-            <ListItem value="Yes">Has Basement:</ListItem>
-            <ListItem value="Fully, Partially, Finished">Basement:</ListItem>
+            <PropertyDescriptionItem value="Yes">
+              Has Basement:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="Fully, Partially, Finished">
+              Basement:
+            </PropertyDescriptionItem>
           </PropertyDetails>
         </div>
         <div>
           <PropertyDetails title="Heating and Cooling">
-            <ListItem value="Forced Air, Gas"> Heating features:</ListItem>
-            <ListItem value="Central Air">Cooling seatures:</ListItem>
+            <PropertyDescriptionItem value="Forced Air, Gas">
+              {" "}
+              Heating features:
+            </PropertyDescriptionItem>
+            <PropertyDescriptionItem value="Central Air">
+              Cooling seatures:
+            </PropertyDescriptionItem>
           </PropertyDetails>
         </div>
       </PropertyDetailsContainer>

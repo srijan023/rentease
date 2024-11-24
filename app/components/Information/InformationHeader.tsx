@@ -6,7 +6,7 @@ export default function InformationHeader(props: {
 }) {
   return (
     <>
-      <div className="flex h-max items-center justify-between mx-4 pt-4 pb-2 text-lg border-b border-b-black">
+      <div className="flex font-semibold h-max items-center justify-between mx-4 pt-4 pb-2 text-lg border-b border-b-black">
         <div className="p-3 w-max bg-secondary-10 rounded-full">
           <props.icon className="text-2xl text-white" />
         </div>

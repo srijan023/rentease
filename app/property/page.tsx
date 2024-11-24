@@ -8,12 +8,13 @@ import PropertySection from "./components/PropertySection";
 import ConstructionSection from "./components/ConstructionSection";
 import UtilitiesCommunitySection from "./components/UtilitiesCommunitySection";
 import PropertyCard from "../components/PropertyCard";
+import { CiMail, CiPhone } from "react-icons/ci";
 
 export default function Property() {
   const text = ["first", "second", "third", "fourth"];
   const [current, setCurrent] = useState(0);
   return (
-    <div className="my-10">
+    <div className="py-10">
       <div className="w-full h-96 rounded-xl my-10 bg-primary-50">
         <div>{text[current]}</div>
         <div className="flex justify-between">
@@ -67,7 +68,7 @@ export default function Property() {
         </div>
         {/*End of top level div*/}
         {/*The description div*/}
-        <div className="grid grid-rows-2 gap-10 my-10">
+        <div className="grid grid-rows-2 gap-10 my-20">
           <div className="grid grid-cols-2 gap-10">
             <InteriorSection />
             <PropertySection />
@@ -78,7 +79,32 @@ export default function Property() {
           </div>
         </div>
         {/*The end of the description div*/}
-        <h3 className="text-3xl my-10 font-header font-bold">
+        {/*The start of the owner details div*/}
+        <div className="w-96 flex items-center gap-4 mx-auto flex-col">
+          <div>
+            <h3 className="text-lg font-semibold text-secondary-30">
+              Owner Details
+            </h3>
+            <p className="text-secondary-40 font-medium">Jimmy Ramson</p>
+          </div>
+
+          <div className="flex text-neutral-20 font-medium gap-10">
+            <div className="flex  gap-2 bg-secondary-95 py-1 px-5 rounded-3xl">
+              <span className="text-2xl">
+                <CiPhone />
+              </span>
+              <p>Contact</p>
+            </div>
+
+            <div className="flex gap-2 bg-secondary-95 px-5 py-1 rounded-3xl">
+              <span className="text-2xl">
+                <CiMail />
+              </span>
+              <p>Mail</p>
+            </div>
+          </div>
+        </div>
+        <h3 className="text-3xl mt-40 mb-10 font-header font-bold">
           You may also like to check
         </h3>
         <PropertyCard />

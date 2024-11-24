@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <>
       <UnprotectedContainer classes="mt-48 bg-white">
-        <h2 className="text-6xl font-header w-max mx-auto mb-14 text-primary-10">
+        <h2 className="text-6xl font-header mb-14 text-primary-10 text-center">
           Browse, Apply, and Move In
         </h2>
-        <p className="max-w-2xl font-body mx-auto text-center text-2xl text-neutral-30 tracking-wide ">
+        <p className="font-body mx-auto text-center text-xl text-neutral-30 font-medium w-[600px] tracking-wide ">
           A personalized property rental service where clients can easily browse
           listings, view property details, and apply to book online, all managed
           directly by the landlord for a seamless experience.
@@ -22,17 +22,17 @@ export default function Home() {
           classes={"text-xl bg-secondary-10 text-white mx-auto block my-24"}
           label="Browse Properties"
         />
-        <div className="h-96 relative z-0 rounded-3xl text-white text-center">
+        <div className="h-96 relative z-0 rounded-3xl text-white text-center w-full">
           <Image
             src={heroImage}
             alt="Available flat in US"
             priority
             className="rounded-3xl object-cover"
             placeholder="blur"
-            fill
+            fill={true}
           />
         </div>
-        <div className="my-28 flex flex-wrap w-5/6 justify-center mx-auto gap-x-20 gap-y-24 ">
+        <div className="my-28 flex flex-wrap justify-center mx-auto gap-x-20 gap-y-24 ">
           {featureData.map((item, index) => {
             return (
               <FeatureCard
@@ -44,7 +44,7 @@ export default function Home() {
             );
           })}
         </div>
-        <h2 className="text-5xl my-20 text-primary-10 font-header">
+        <h2 className="text-5xl mt-20 mb-10 text-primary-10 font-header">
           What are you looking for?
         </h2>
         <div className="mb-20">
