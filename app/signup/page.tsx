@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BasicInfoForm from "./components/BasicInfoForm";
 import LegalInfoForm from "./components/LegalInfoForm";
 import ContactInfoForm from "./components/ContactInfoForm";
@@ -9,6 +9,8 @@ import { z } from "zod";
 import { personSchema } from "@/validations/zodSchemas/personSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SignInModal from "../components/SignInModal";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 type FormData = z.infer<typeof personSchema>;
 
@@ -92,13 +94,48 @@ export default function Signup() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(personSchema) });
 
+  // Watching data to save on local storage
+  const watchedFields = watch();
+  useEffect(() => {
+    localStorage.setItem("signupFormData", JSON.stringify(watchedFields));
+  }, [watchedFields]);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("signupFormData");
+    if (savedData) {
+      reset(JSON.parse(savedData));
+    }
+  }, [reset]);
+
   {
     // submit handler
   }
-  console.log(errors);
-  const handleSignup: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-    reset();
+  const router = useRouter();
+  const handleSignup: SubmitHandler<FormData> = async (data) => {
+    // Remove `prev_landlord` if `prev_landlord.name` is missing
+    const transformedData = { ...data };
+    if (!transformedData.prev_landlord?.name) {
+      delete transformedData.prev_landlord;
+    }
+
+    // Reformat `dob` to ISO format (e.g., "2000-01-01T00:00:00.000Z")
+    if (transformedData.dob) {
+      transformedData.dob = new Date(data.dob).toISOString() as any;
+    }
+
+    try {
+      // Send the transformed data to the backend
+      const res = await axios.post("/api/auth/users/signup", transformedData);
+      console.log(res);
+
+      // Clear localStorage and reset the form after successful signup
+      localStorage.removeItem("signupFormData");
+      reset();
+      router.push("/tenant");
+    } catch (error) {
+      console.error("Signup failed:", error);
+      // Handle errors (e.g., show error messages)
+    }
   };
 
   const [showModal, setShowModal] = useState(false);

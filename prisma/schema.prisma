@@ -133,6 +133,7 @@ model auxPerson {
   state         String
   region        String
   sub_division  String?
+  street        String?
 }
 
 enum auxPersonType {
