@@ -10,7 +10,7 @@ import { personSchema } from "@/validations/zodSchemas/personSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SignInModal from "../components/SignInModal";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 type FormData = z.infer<typeof personSchema>;
 

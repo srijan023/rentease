@@ -8,7 +8,7 @@ export default function HeaderSection({
   children: React.ReactNode;
 }) {
   return (
-    <div className="my-10 flex justify-between items-center">
+    <div className="min-w-[750px] my-10 flex justify-between items-center">
       <h1 className="text-3xl font-header">{title}</h1>
       <div className="px-2 rounded-full text-xl py-2 border border-primary-10 flex items-center">
         <p className="text-2xl">

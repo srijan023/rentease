@@ -7,7 +7,7 @@ type UserInformationType = {
   name: string;
   id: string;
   email: string;
-  phone: string;
+  contact: string;
 };
 export default function UserCapsule({ user }: { user: UserInformationType }) {
   return (
@@ -29,7 +29,7 @@ export default function UserCapsule({ user }: { user: UserInformationType }) {
       </div>
 
       <div className="text-gray-600">
-        <CapsuleItem>{user.phone}</CapsuleItem>
+        <CapsuleItem>{user.contact}</CapsuleItem>
       </div>
 
       <div className="rounded-r-3xl">
